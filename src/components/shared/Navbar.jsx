@@ -1,6 +1,6 @@
 import React from "react";
 import NivashLogo from "./NivashLogo";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const navLinks = (
@@ -59,7 +59,9 @@ const Navbar = () => {
             <div className="flex items-center space-x-2">{navLinks}</div>
           </div>
           <div className="navbar-end">
-            <button className="btn">login</button>
+            <Link to="/login">
+              <button className="btn bg-blue-500 text-white">login</button>
+            </Link>
           </div>
         </div>
       </div>
@@ -93,7 +95,6 @@ const Navbar = () => {
           <ul className="menu space-y-2">{mobileNavLinks}</ul>
 
           {/* User section in drawer */}
-       
         </div>
       </div>
     </div>
