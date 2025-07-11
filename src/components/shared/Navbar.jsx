@@ -2,9 +2,10 @@ import React from "react";
 import NivashLogo from "./NivashLogo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
   const navLinks = (
     <>
       <NavLink
@@ -25,7 +26,39 @@ const Navbar = () => {
   // Mobile nav links with icons and styling
   const mobileNavLinks = <></>;
   //console.log("user in navbar", user);
-
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, log out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut()
+          .then(() => {
+            Swal.fire({
+              title: "Logged Out!",
+              text: "You have been successfully logged out.",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong during logout.",
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
   return (
     <div className="drawer">
       <input id="mobile-drawer" type="checkbox" className="drawer-toggle" />
@@ -126,7 +159,7 @@ const Navbar = () => {
                     </li>
                     <li>
                       <button
-                        //onClick={handleLogOut}
+                        onClick={handleLogOut}
                         className="w-full flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
                       >
                         <svg
