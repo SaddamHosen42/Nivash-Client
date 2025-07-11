@@ -1,6 +1,8 @@
 import React from 'react';
 import AboutBuilding from '../../components/home/AboutBuilding';
 import Banner from '../../components/home/Banner';
+import LocationMap from '../../components/home/LocationMap';
+
 
 const Home = () => {
     return (
@@ -10,6 +12,7 @@ const Home = () => {
             </header>
             <main>
                 <AboutBuilding/>
+                <LocationMap/>
             </main>
         </div>
     );

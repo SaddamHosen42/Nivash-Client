@@ -103,13 +103,13 @@ const Slider3 = () => {
               }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Link to="/register">
+              <Link >
                 <button className="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25">
                   <span className="relative z-10">Start Your Journey</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                 </button>
               </Link>
-              <Link to="/virtual-tour">
+              <Link >
                 <button className="px-8 py-4 border-2 border-emerald-400 text-emerald-400 font-semibold rounded-xl hover:bg-emerald-400 hover:text-emerald-900 transition-all duration-300">
                   Virtual Tour
                 </button>

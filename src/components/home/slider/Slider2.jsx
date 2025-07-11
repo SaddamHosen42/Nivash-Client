@@ -54,12 +54,12 @@ const Slider2 = () => {
             }}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
           >
-            <Link to="/apartments">
+            <Link >
               <button className="btn bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 border-none text-white px-10 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
                 View Apartments
               </button>
             </Link>
-            <Link to="/contact">
+            <Link>
               <button className="btn btn-outline border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-gray-900 px-10 py-4 text-lg font-semibold transition-all duration-300">
                 Schedule Visit
               </button>
