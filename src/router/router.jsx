@@ -4,6 +4,7 @@ import Home from "../pages/home/Home";
 import AuthLayOut from "../layouts/AuthLayOut";
 import Login from "../pages/authentication/Login";
 import Register from "../pages/authentication/Register";
+import Apartment from "../pages/apartment/Apartment";
 
 export const router = createBrowserRouter([
     {
@@ -13,6 +14,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element:<Home />
+            },
+            {
+                path: "apartment",
+                element: <Apartment />
             }
         ]
     },

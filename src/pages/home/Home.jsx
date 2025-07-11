@@ -6,7 +6,7 @@ import LocationMap from '../../components/home/LocationMap';
 
 const Home = () => {
     return (
-        <div>
+        <div className="min-h-screen">
             <header>
                 <Banner/>
             </header>

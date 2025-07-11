@@ -3,9 +3,20 @@ import NivashLogo from "./NivashLogo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { 
+  HiHome, 
+  HiOfficeBuilding, 
+  HiViewGrid, 
+  HiLogout,
+  HiMenu,
+  HiX,
+  HiUser
+} from "react-icons/hi";
+import { MdDashboard } from "react-icons/md";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  // Navigation links for desktop view
   const navLinks = (
     <>
       <NavLink
@@ -20,11 +31,90 @@ const Navbar = () => {
       >
         Home
       </NavLink>
+      <NavLink
+        to="apartment"
+        className={({ isActive }) =>
+          `px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+            isActive
+              ? "text-blue-600 bg-blue-50 border-b-2 border-blue-600"
+              : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+          }`
+        }
+      >
+        Apartments
+      </NavLink>
     </>
   );
 
   // Mobile nav links with icons and styling
-  const mobileNavLinks = <></>;
+  const mobileNavLinks = (
+    <>
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `flex items-center px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+              isActive
+                ? "text-blue-600 bg-blue-50 border-l-4 border-blue-600"
+                : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+            }`
+          }
+          onClick={() => document.getElementById("mobile-drawer").checked = false}
+        >
+          <HiHome className="h-5 w-5 mr-3" />
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/apartment"
+          className={({ isActive }) =>
+            `flex items-center px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+              isActive
+                ? "text-blue-600 bg-blue-50 border-l-4 border-blue-600"
+                : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+            }`
+          }
+          onClick={() => document.getElementById("mobile-drawer").checked = false}
+        >
+          <HiOfficeBuilding className="h-5 w-5 mr-3" />
+          Apartments
+        </NavLink>
+      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              
+              className={({ isActive }) =>
+                `flex items-center px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                  isActive
+                    ? "text-blue-600 bg-blue-50 border-l-4 border-blue-600"
+                    : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                }`
+              }
+              onClick={() => document.getElementById("mobile-drawer").checked = false}
+            >
+              <MdDashboard className="h-5 w-5 mr-3"/>
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                document.getElementById("mobile-drawer").checked = false;
+                handleLogOut();
+              }}
+              className="w-full flex items-center px-4 py-3 rounded-lg font-medium text-red-600 hover:bg-red-50 transition-all duration-300"
+            >
+              <HiLogout className="h-5 w-5 mr-3" />
+              Logout
+            </button>
+          </li>
+        </>
+      )}
+    </>
+  );
   //console.log("user in navbar", user);
   const handleLogOut = () => {
     Swal.fire({
@@ -71,20 +161,7 @@ const Navbar = () => {
               htmlFor="mobile-drawer"
               className="btn btn-ghost lg:hidden drawer-button"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
+              <HiMenu className="h-8 w-8" />
             </label>
             <div className="">
               <NivashLogo />
@@ -199,20 +276,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between mb-8">
             <NivashLogo />
             <label htmlFor="mobile-drawer" className="btn btn-circle btn-ghost">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <HiX className="h-6 w-6" />
             </label>
           </div>
 
@@ -231,20 +295,7 @@ const Navbar = () => {
                   />
                 ) : (
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-blue-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
+                    <HiUser className="h-6 w-6 text-blue-600" />
                   </div>
                 )}
                 <div>
