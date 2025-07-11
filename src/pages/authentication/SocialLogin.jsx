@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
@@ -32,15 +33,20 @@ const SocialLogin = () => {
       });
   };
   return (
-    <div className=" w-full">
-      <button
+    <div className="w-full space-y-4">
+      <motion.button
         onClick={handleGoogleSignIn}
-        className="btn bg-white text-black border-[#e5e5e5] w-full hover:bg-gray-100 transition-all duration-300 flex items-center justify-center gap-2"
+        className="w-full bg-white border-2 border-gray-200 text-gray-700 py-4 rounded-xl font-semibold hover:border-gray-300 hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
       >
         <svg
           aria-label="Google logo"
-          width="25"
-          height="25"
+          width="24"
+          height="24"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
         >
@@ -64,8 +70,8 @@ const SocialLogin = () => {
             ></path>
           </g>
         </svg>
-        Login with Google
-      </button>
+        <span className="text-lg">Continue with Google</span>
+      </motion.button>
     </div>
   );
 };
