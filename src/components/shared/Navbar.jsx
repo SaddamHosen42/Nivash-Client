@@ -1,8 +1,10 @@
 import React from "react";
 import NivashLogo from "./NivashLogo";
 import { Link, NavLink } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user } = useAuth();
   const navLinks = (
     <>
       <NavLink
@@ -59,9 +61,99 @@ const Navbar = () => {
             <div className="flex items-center space-x-2">{navLinks}</div>
           </div>
           <div className="navbar-end">
-            <Link to="/login">
-              <button className="btn bg-blue-500 text-white">login</button>
-            </Link>
+            {user ? (
+              <div className="dropdown dropdown-end mr-3">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-12 rounded-full border-2 border-primary">
+                    <img
+                      alt="Profile"
+                      src={
+                        user.photoURL ||
+                        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      }
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-sm dropdown-content bg-white rounded-2xl z-[1] mt-3 w-64 p-4 shadow-xl border border-gray-200"
+                >
+                  {/* User Info Section */}
+                  <div className="px-2 py-3 border-b border-gray-100">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 rounded-full border-2 border-primary">
+                        <img
+                          alt="Profile"
+                          src={
+                            user.photoURL ||
+                            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                          }
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-semibold text-gray-900 truncate">
+                          {user.displayName || "User"}
+                        </h3>
+                        <p className="text-xs text-gray-500 truncate">
+                          {user.email}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Menu Items */}
+                  <div className="py-2">
+                    <li>
+                      <NavLink
+                        to="/dashboard"
+                        className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                      >
+                        <svg
+                          className="w-4 h-4 mr-3 text-blue-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                        </svg>
+                        Dashboard
+                      </NavLink>
+                    </li>
+                    <li>
+                      <button
+                        //onClick={handleLogOut}
+                        className="w-full flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+                      >
+                        <svg
+                          className="w-4 h-4 mr-3 text-red-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        Logout
+                      </button>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="px-6 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -95,6 +187,68 @@ const Navbar = () => {
           <ul className="menu space-y-2">{mobileNavLinks}</ul>
 
           {/* User section in drawer */}
+          {user ? (
+            <div className="mt-8 pt-8 border-t border-gray-200">
+              <div className="flex items-center space-x-3 mb-4">
+                {user.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt={user.displayName || "User"}
+                    className="w-12 h-12 rounded-full border-2 border-gray-200"
+                  />
+                ) : (
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 text-blue-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                  </div>
+                )}
+                <div>
+                  <p className="font-semibold text-gray-900">
+                    {user.displayName || "User"}
+                  </p>
+                  <p className="text-sm text-gray-500">{user.email}</p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-8 pt-8 border-t border-gray-200">
+              <NavLink
+                to="/login"
+                className="flex items-center justify-center w-full px-6 py-3 text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                onClick={() =>
+                  (document.getElementById("mobile-drawer").checked = false)
+                }
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+                Login
+              </NavLink>
+            </div>
+          )}
         </div>
       </div>
     </div>
