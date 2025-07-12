@@ -6,6 +6,10 @@ import Login from "../pages/authentication/Login";
 import Register from "../pages/authentication/Register";
 import Apartment from "../pages/apartment/Apartment";
 import PrivateRoute from "../routes/PrivateRoute";
+import DashboardLayout from "../layouts/DashboardLayout";
+import MyProfile from "../Dashboard/MyProfile";
+import DashboardHome from "../Dashboard/DashboardHome";
+import Announcements from "../Dashboard/Announcements";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +42,28 @@ export const router = createBrowserRouter([
         path: "register",
         element: <Register />,
       },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <DashboardHome />,
+      },
+      {
+        path: "myProfile",
+        element: <MyProfile />,
+      },
+      {
+        path: "announcements",
+        element:<Announcements />,
+      }
     ],
   },
 ]);
