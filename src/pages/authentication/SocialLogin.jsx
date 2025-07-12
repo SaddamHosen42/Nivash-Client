@@ -24,7 +24,9 @@ const SocialLogin = () => {
         };
         const userRes = await axiosInstance.post("/users", userInfo);
         console.log(userRes.data);
-        navigate(location.state || "/");
+        // Check if there's a redirect location from state
+        const redirectTo = location.state?.from || "/";
+        navigate(redirectTo);
         Swal.fire({
           icon: "success",
           title: "Login successful!",

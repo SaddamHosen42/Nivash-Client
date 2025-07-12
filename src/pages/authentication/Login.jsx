@@ -29,7 +29,9 @@ const Login = () => {
     logIn(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        navigate(location.state || "/");
+        // Check if there's a redirect location from state
+        const redirectTo = location.state?.from || "/";
+        navigate(redirectTo);
         //console.log(user);
         Swal.fire({
           // position: "top-end",

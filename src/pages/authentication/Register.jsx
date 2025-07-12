@@ -44,7 +44,7 @@ const Register = () => {
         };
         const userRes = await axiosInstance.post("/users", userInfo);
         console.log(userRes.data);
-        
+
         //update user in firebase
         updateUser({ displayName: data.name, photoURL: profilePic })
           .then(() => {
@@ -53,7 +53,8 @@ const Register = () => {
               displayName: data.name,
               photoURL: profilePic,
             });
-            navigate(location.state || "/");
+            const redirectTo = location.state?.from || "/";
+            navigate(redirectTo);
             Swal.fire({
               icon: "success",
               title: "Your account is created.",

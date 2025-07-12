@@ -22,11 +22,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "apartment",
-        element: (
-          <PrivateRoute>
-            <Apartment />
-          </PrivateRoute>
-        ),
+        element: <Apartment />,
       },
     ],
   },
@@ -62,8 +58,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "announcements",
-        element:<Announcements />,
-      }
+        element: <Announcements />,
+      },
     ],
   },
 ]);
