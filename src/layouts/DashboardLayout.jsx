@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
 
   const navLinks = (
     <>
@@ -26,8 +26,8 @@ const DashboardLayout = () => {
                     flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 group relative overflow-hidden
                     ${
                       isActive
-                        ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-                        : "text-gray-600 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 hover:text-emerald-600"
+                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transform scale-105"
+                        : "text-gray-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-600"
                     }
                   `}
         >
@@ -47,8 +47,8 @@ const DashboardLayout = () => {
                     flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 group relative overflow-hidden
                     ${
                       isActive
-                        ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-                        : "text-gray-600 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 hover:text-emerald-600"
+                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transform scale-105"
+                        : "text-gray-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-600"
                     }
                   `}
         >
@@ -68,8 +68,8 @@ const DashboardLayout = () => {
                     flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 group relative overflow-hidden
                     ${
                       isActive
-                        ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg transform scale-105"
-                        : "text-gray-600 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 hover:text-emerald-600"
+                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transform scale-105"
+                        : "text-gray-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-600"
                     }
                   `}
         >
@@ -79,6 +79,41 @@ const DashboardLayout = () => {
       </motion.div>
     </>
   );
+
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, log out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut()
+          .then(() => {
+            Swal.fire({
+              title: "Logged Out!",
+              text: "You have been successfully logged out.",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong during logout.",
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -129,7 +164,10 @@ const DashboardLayout = () => {
                   "User"}
               </span>
             </div>
-            <button className="btn btn-ghost btn-circle text-red-500 hover:bg-red-50 hover:scale-110 transition-all duration-300">
+            <button
+              onClick={handleLogOut}
+              className="btn btn-ghost btn-circle text-red-500 hover:bg-red-50 hover:scale-110 transition-all duration-300"
+            >
               <FaSignOutAlt className="h-5 w-5" />
             </button>
           </div>
@@ -151,11 +189,16 @@ const DashboardLayout = () => {
         {/* Beautiful Modern Sidebar */}
         <div className="bg-white min-h-full w-80 shadow-2xl">
           {/* Sidebar Header */}
-          <div className="p-6 bg-gradient-to-br from-blue-600 via-blue-700 to-purple-700 relative overflow-hidden">
+          <div className="p-6 bg-gradient-to-br from-slate-800 via-gray-900 to-black relative overflow-hidden">
             {/* Background decoration */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-600/20"></div>
-            <div className="absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10"></div>
+            <div className="absolute -top-10 -right-10 w-20 h-20 bg-blue-500/10 rounded-full blur-xl"></div>
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-500/5 rounded-full blur-xl"></div>
+            
+            {/* Floating elements for more beauty */}
+            <div className="absolute top-8 right-12 w-2 h-2 bg-blue-400/50 rounded-full animate-pulse"></div>
+            <div className="absolute top-16 left-8 w-1 h-1 bg-purple-400/60 rounded-full animate-ping delay-1000"></div>
+            <div className="absolute bottom-12 right-6 w-3 h-3 bg-cyan-400/40 rotate-45 animate-bounce delay-500"></div>
 
             <div className="relative z-10">
               <div className="mb-6">
@@ -167,12 +210,12 @@ const DashboardLayout = () => {
                 transition={{ duration: 0.5 }}
                 className="text-center"
               >
-                <div className="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden border-3 border-white border-opacity-30 shadow-xl backdrop-blur-sm">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden border-2 border-blue-400/30 shadow-xl backdrop-blur-sm ring-2 ring-purple-500/20 ring-offset-2 ring-offset-transparent">
                   {user?.photoURL || user?.photo ? (
                     <img
                       src={user?.photoURL || user?.photo}
                       alt="Profile"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover rounded-full"
                       onError={(e) => {
                         e.target.style.display = "none";
                         e.target.parentNode.querySelector(
@@ -187,13 +230,13 @@ const DashboardLayout = () => {
                     }`}
                   />
                 </div>
-                <h3 className="text-white font-bold text-xl mb-1">
+                <h3 className="text-white font-bold text-xl mb-1 drop-shadow-lg">
                   {user?.displayName ||
                     user?.name ||
                     user?.email?.split("@")[0] ||
                     "User"}
                 </h3>
-                <p className="text-blue-100 text-sm opacity-90">
+                <p className="text-blue-200 text-sm opacity-90 drop-shadow-sm">
                   Welcome to your dashboard!
                 </p>
               </motion.div>
@@ -206,7 +249,10 @@ const DashboardLayout = () => {
 
             {/* Logout Section */}
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gray-50 border-t">
-              <button className="w-full flex items-center justify-center space-x-3 px-4 py-3 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-all duration-200 group">
+              <button
+                onClick={handleLogOut}
+                className="w-full flex items-center justify-center space-x-3 px-4 py-3 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-all duration-200 group"
+              >
                 <FaSignOutAlt className="text-lg" />
                 <span className="font-medium">Logout</span>
               </button>
