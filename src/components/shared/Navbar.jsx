@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import { 
   HiHome, 
   HiOfficeBuilding, 
-  HiViewGrid, 
   HiLogout,
   HiMenu,
   HiX,
