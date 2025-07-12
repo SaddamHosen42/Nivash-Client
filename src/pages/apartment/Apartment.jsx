@@ -93,7 +93,9 @@ const Apartment = () => {
       block: apt.block,
       apartmentNo: apt.apartmentNo,
       rent: apt.rent,
-    };
+      requestDate: new Date().toISOString(),
+      status: "pending", // Default status
+   };
 
     try {
       const res = await axiosSecure.post("/agreements", agreementData);
