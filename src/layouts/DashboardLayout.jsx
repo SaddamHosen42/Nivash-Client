@@ -194,7 +194,7 @@ const DashboardLayout = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10"></div>
             <div className="absolute -top-10 -right-10 w-20 h-20 bg-blue-500/10 rounded-full blur-xl"></div>
             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-500/5 rounded-full blur-xl"></div>
-            
+
             {/* Floating elements for more beauty */}
             <div className="absolute top-8 right-12 w-2 h-2 bg-blue-400/50 rounded-full animate-pulse"></div>
             <div className="absolute top-16 left-8 w-1 h-1 bg-purple-400/60 rounded-full animate-ping delay-1000"></div>
@@ -211,30 +211,17 @@ const DashboardLayout = () => {
                 className="text-center"
               >
                 <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden border-2 border-blue-400/30 shadow-xl backdrop-blur-sm ring-2 ring-purple-500/20 ring-offset-2 ring-offset-transparent">
-                  {user?.photoURL || user?.photo ? (
-                    <img
-                      src={user?.photoURL || user?.photo}
-                      alt="Profile"
-                      className="w-full h-full object-cover rounded-full"
-                      onError={(e) => {
-                        e.target.style.display = "none";
-                        e.target.parentNode.querySelector(
-                          ".fallback-icon"
-                        ).style.display = "block";
-                      }}
-                    />
-                  ) : null}
-                  <FaUser
-                    className={`fallback-icon text-white text-2xl ${
-                      user?.photoURL || user?.photo ? "hidden" : "block"
-                    }`}
+                  <img
+                    alt="Profile"
+                    src={
+                      user.photoURL ||
+                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    }
+                    className="w-full h-full object-cover rounded-full"
                   />
                 </div>
                 <h3 className="text-white font-bold text-xl mb-1 drop-shadow-lg">
-                  {user?.displayName ||
-                    user?.name ||
-                    user?.email?.split("@")[0] ||
-                    "User"}
+                  {user?.displayName}
                 </h3>
                 <p className="text-blue-200 text-sm opacity-90 drop-shadow-sm">
                   Welcome to your dashboard!
