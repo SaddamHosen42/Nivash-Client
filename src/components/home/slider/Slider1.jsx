@@ -55,7 +55,7 @@ const Slider1 = () => {
       <div className="hero-content text-neutral-content relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Single Column Center Layout */}
-          <div className="text-center space-y-8">
+          <div className="text-center space-y-8 pt-30">
             <motion.div
               initial={{ opacity: 0, y: -80 }}
               animate={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ const Slider1 = () => {
                 ease: "easeOut",
               }}
             >
-              <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500/30 to-indigo-500/30 text-blue-200 rounded-2xl text-base font-bold mb-8 border border-blue-400/40 backdrop-blur-sm">
+              <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500/30 to-indigo-500/30 text-blue-200 rounded-2xl text-base font-bold mb-8 border border-blue-400/40 backdrop-blur-sm ">
                 <span className="mr-3">�️</span>
                 INTELLIGENT BUILDING SOLUTIONS
               </div>

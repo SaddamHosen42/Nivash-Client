@@ -1,30 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NivashLogo from "./NivashLogo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
-import { 
-  HiHome, 
-  HiOfficeBuilding, 
+import {
+  HiHome,
+  HiOfficeBuilding,
   HiLogout,
   HiMenu,
   HiX,
-  HiUser
+  HiUser,
 } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   // Navigation links for desktop view
   const navLinks = (
     <>
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+          `px-4 py-2 rounded-full font-medium transition-all duration-300 relative ${
             isActive
-              ? "text-blue-600 bg-blue-50 border-b-2 border-blue-600"
-              : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+              ? isScrolled
+                ? "text-white bg-blue-600 shadow-lg"
+                : "text-slate-900 bg-white shadow-lg"
+              : isScrolled
+              ? "text-gray-300 hover:text-white hover:bg-white/10"
+              : "text-white/80 hover:text-white hover:bg-white/10"
           }`
         }
       >
@@ -33,10 +49,14 @@ const Navbar = () => {
       <NavLink
         to="apartment"
         className={({ isActive }) =>
-          `px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+          `px-4 py-2 rounded-full font-medium transition-all duration-300 relative ${
             isActive
-              ? "text-blue-600 bg-blue-50 border-b-2 border-blue-600"
-              : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+              ? isScrolled
+                ? "text-white bg-blue-600 shadow-lg"
+                : "text-slate-900 bg-white shadow-lg"
+              : isScrolled
+              ? "text-gray-300 hover:text-white hover:bg-white/10"
+              : "text-white/80 hover:text-white hover:bg-white/10"
           }`
         }
       >
@@ -52,13 +72,15 @@ const Navbar = () => {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `flex items-center px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+            `flex items-center px-4 py-3 rounded-xl font-medium transition-all duration-300 mb-2 ${
               isActive
-                ? "text-blue-600 bg-blue-50 border-l-4 border-blue-600"
-                : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                ? "text-slate-900 bg-white shadow-lg"
+                : "text-white/80 hover:text-white hover:bg-white/10"
             }`
           }
-          onClick={() => document.getElementById("mobile-drawer").checked = false}
+          onClick={() =>
+            (document.getElementById("mobile-drawer").checked = false)
+          }
         >
           <HiHome className="h-5 w-5 mr-3" />
           Home
@@ -68,13 +90,15 @@ const Navbar = () => {
         <NavLink
           to="/apartment"
           className={({ isActive }) =>
-            `flex items-center px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+            `flex items-center px-4 py-3 rounded-xl font-medium transition-all duration-300 mb-2 ${
               isActive
-                ? "text-blue-600 bg-blue-50 border-l-4 border-blue-600"
-                : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                ? "text-slate-900 bg-white shadow-lg"
+                : "text-white/80 hover:text-white hover:bg-white/10"
             }`
           }
-          onClick={() => document.getElementById("mobile-drawer").checked = false}
+          onClick={() =>
+            (document.getElementById("mobile-drawer").checked = false)
+          }
         >
           <HiOfficeBuilding className="h-5 w-5 mr-3" />
           Apartments
@@ -84,17 +108,19 @@ const Navbar = () => {
         <>
           <li>
             <NavLink
-              
+              to="/dashboard"
               className={({ isActive }) =>
-                `flex items-center px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                `flex items-center px-4 py-3 rounded-xl font-medium transition-all duration-300 mb-2 ${
                   isActive
-                    ? "text-blue-600 bg-blue-50 border-l-4 border-blue-600"
-                    : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                    ? "text-slate-900 bg-white shadow-lg"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
                 }`
               }
-              onClick={() => document.getElementById("mobile-drawer").checked = false}
+              onClick={() =>
+                (document.getElementById("mobile-drawer").checked = false)
+              }
             >
-              <MdDashboard className="h-5 w-5 mr-3"/>
+              <MdDashboard className="h-5 w-5 mr-3" />
               Dashboard
             </NavLink>
           </li>
@@ -104,7 +130,7 @@ const Navbar = () => {
                 document.getElementById("mobile-drawer").checked = false;
                 handleLogOut();
               }}
-              className="w-full flex items-center px-4 py-3 rounded-lg font-medium text-red-600 hover:bg-red-50 transition-all duration-300"
+              className="w-full flex items-center px-4 py-3 rounded-xl font-medium text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all duration-300 mb-2"
             >
               <HiLogout className="h-5 w-5 mr-3" />
               Logout
@@ -153,116 +179,131 @@ const Navbar = () => {
       <input id="mobile-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <div className="navbar bg-base-100 shadow-sm mx-auto">
-          <div className="navbar-start">
-            {/* Mobile hamburger menu */}
-            <label
-              htmlFor="mobile-drawer"
-              className="btn btn-ghost lg:hidden drawer-button"
-            >
-              <HiMenu className="h-8 w-8" />
-            </label>
-            <div className="">
-              <NivashLogo />
-            </div>
-          </div>
-          <div className="navbar-center hidden lg:flex">
-            <div className="flex items-center space-x-2">{navLinks}</div>
-          </div>
-          <div className="navbar-end">
-            {user ? (
-              <div className="dropdown dropdown-end mr-3">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn btn-ghost btn-circle avatar"
-                >
-                  <div className="w-12 rounded-full border-2 border-primary">
-                    <img
-                      alt="Profile"
-                      src={
-                        user.photoURL ||
-                        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      }
-                      className="w-full h-full object-cover"
-                    />
+        <div
+          className={`navbar transition-all duration-500 ${
+            isScrolled
+              ? "fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-lg shadow-2xl border-b border-slate-700/50"
+              : "absolute top-4 left-0 right-0"
+          } z-40`}
+        >
+          <div className="max-w-7xl mx-auto w-full px-6 lg:px-10">
+            {/* Centered pill-shaped container */}
+            <div className="w-full flex items-center justify-center">
+              <div
+                className={`flex items-center justify-between w-full transition-all duration-500 ${
+                  isScrolled
+                    ? "max-w-7xl px-6"
+                    : "max-w-4xl bg-white/5 backdrop-blur-lg rounded-full px-8 p-2 border border-white/10 shadow-2xl"
+                }`}
+              >
+                {/* Logo Section */}
+                <div className="flex items-center">
+                  <label
+                    htmlFor="mobile-drawer"
+                    className={`btn btn-ghost lg:hidden drawer-button mr-2 border-0 transition-all duration-300 ${
+                      isScrolled
+                        ? "text-white hover:bg-white/10"
+                        : "text-white hover:bg-white/10"
+                    }`}
+                  >
+                    <HiMenu className="h-5 w-5" />
+                  </label>
+                  <div className="text-white font-bold text-xl">
+                    <NivashLogo />
                   </div>
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="menu menu-sm dropdown-content bg-white rounded-2xl z-[1] mt-3 w-64 p-4 shadow-xl border border-gray-200"
-                >
-                  {/* User Info Section */}
-                  <div className="px-2 py-3 border-b border-gray-100">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 rounded-full border-2 border-primary">
-                        <img
-                          alt="Profile"
-                          src={
-                            user.photoURL ||
-                            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                          }
-                          className="w-full h-full object-cover rounded-full"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-semibold text-gray-900 truncate">
-                          {user.displayName || "User"}
-                        </h3>
-                        <p className="text-xs text-gray-500 truncate">
-                          {user.email}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Menu Items */}
-                  <div className="py-2">
-                    <li>
-                      <NavLink
-                        to="/dashboard"
-                        className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                {/* Center Navigation Links */}
+                <div className="hidden lg:flex items-center space-x-2">
+                  {navLinks}
+                </div>
+
+                {/* Right Section */}
+                <div className="flex items-center">
+                  {user ? (
+                    <div className="dropdown dropdown-end">
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        className="btn btn-ghost btn-circle avatar hover:scale-110 transition-all duration-300"
                       >
-                        <svg
-                          className="w-4 h-4 mr-3 text-blue-500"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                        </svg>
-                        Dashboard
-                      </NavLink>
-                    </li>
-                    <li>
-                      <button
-                        onClick={handleLogOut}
-                        className="w-full flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
-                      >
-                        <svg
-                          className="w-4 h-4 mr-3 text-red-500"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-                            clipRule="evenodd"
+                        <div className="w-9 h-9 rounded-full border-2 border-white/30 shadow-lg overflow-hidden hover:border-white/60">
+                          <img
+                            alt="Profile"
+                            src={
+                              user.photoURL ||
+                              "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                            }
+                            className="w-full h-full object-cover"
                           />
-                        </svg>
-                        Logout
-                      </button>
-                    </li>
-                  </div>
-                </ul>
+                        </div>
+                      </div>
+                      <ul
+                        tabIndex={0}
+                        className="menu menu-sm dropdown-content bg-slate-900/95 backdrop-blur-xl rounded-2xl z-[1] mt-3 w-72 p-0 shadow-2xl border border-white/20 overflow-hidden"
+                      >
+                        {/* User Info Section */}
+                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-white">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-14 h-14 rounded-full border-3 border-white shadow-lg overflow-hidden">
+                              <img
+                                alt="Profile"
+                                src={
+                                  user.photoURL ||
+                                  "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                }
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-lg font-bold text-white truncate">
+                                {user.displayName || "User"}
+                              </h3>
+                              <p className="text-sm text-blue-100 truncate">
+                                {user.email}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Menu Items */}
+                        <div className="p-2">
+                          <li>
+                            <NavLink
+                              to="/dashboard"
+                              className="flex items-center px-4 py-3 text-sm text-white hover:bg-white/10 hover:text-blue-400 rounded-xl transition-all duration-200 m-1"
+                            >
+                              <MdDashboard className="w-5 h-5 mr-3 text-blue-400" />
+                              <span className="font-medium">Dashboard</span>
+                            </NavLink>
+                          </li>
+                          <li>
+                            <button
+                              onClick={handleLogOut}
+                              className="w-full flex items-center px-4 py-3 text-sm text-red-400 hover:bg-red-500/20 rounded-xl transition-all duration-200 m-1"
+                            >
+                              <HiLogout className="w-5 h-5 mr-3 text-red-400" />
+                              <span className="font-medium">Logout</span>
+                            </button>
+                          </li>
+                        </div>
+                      </ul>
+                    </div>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className={`px-6 py-2 text-sm font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                        isScrolled
+                          ? "text-slate-900 bg-white hover:bg-gray-100"
+                          : "text-slate-900 bg-white hover:bg-gray-100"
+                      }`}
+                    >
+                      Early Access
+                    </Link>
+                  )}
+                </div>
               </div>
-            ) : (
-              <Link
-                to="/login"
-                className="px-6 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
-                Login
-              </Link>
-            )}
+            </div>
           </div>
         </div>
       </div>
@@ -270,65 +311,59 @@ const Navbar = () => {
       {/* Drawer sidebar for mobile */}
       <div className="drawer-side z-50">
         <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
-        <div className="min-h-full w-80 bg-white p-4">
+        <div className="min-h-full w-80 bg-slate-900/95 backdrop-blur-xl border-r border-white/10 shadow-2xl">
           {/* Drawer header */}
-          <div className="flex items-center justify-between mb-8">
-            <NivashLogo />
-            <label htmlFor="mobile-drawer" className="btn btn-circle btn-ghost">
+          <div className="flex items-center justify-between p-6 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-white/10">
+            <div className="text-white">
+              <NivashLogo />
+            </div>
+            <label
+              htmlFor="mobile-drawer"
+              className="btn btn-circle btn-ghost text-white hover:bg-white/10 border-0"
+            >
               <HiX className="h-6 w-6" />
             </label>
           </div>
 
           {/* Navigation links */}
-          <ul className="menu space-y-2">{mobileNavLinks}</ul>
+          <div className="p-4">
+            <ul className="menu space-y-2">{mobileNavLinks}</ul>
+          </div>
 
           {/* User section in drawer */}
           {user ? (
-            <div className="mt-8 pt-8 border-t border-gray-200">
+            <div className="mt-8 mx-4 p-4 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
               <div className="flex items-center space-x-3 mb-4">
                 {user.photoURL ? (
                   <img
                     src={user.photoURL}
                     alt={user.displayName || "User"}
-                    className="w-12 h-12 rounded-full border-2 border-gray-200"
+                    className="w-14 h-14 rounded-full border-2 border-white/20 shadow-md"
                   />
                 ) : (
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <HiUser className="h-6 w-6 text-blue-600" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-md">
+                    <HiUser className="h-8 w-8 text-white" />
                   </div>
                 )}
                 <div>
-                  <p className="font-semibold text-gray-900">
+                  <p className="font-bold text-white text-lg">
                     {user.displayName || "User"}
                   </p>
-                  <p className="text-sm text-gray-500">{user.email}</p>
+                  <p className="text-sm text-white/60">{user.email}</p>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="mt-8 pt-8 border-t border-gray-200">
+            <div className="mx-4 mt-8">
               <NavLink
                 to="/login"
-                className="flex items-center justify-center w-full px-6 py-3 text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="flex items-center justify-center w-full px-6 py-4 text-slate-900 font-semibold bg-white rounded-2xl hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 onClick={() =>
                   (document.getElementById("mobile-drawer").checked = false)
                 }
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                  />
-                </svg>
-                Login
+                <HiUser className="h-5 w-5 mr-2" />
+                Early Access
               </NavLink>
             </div>
           )}
