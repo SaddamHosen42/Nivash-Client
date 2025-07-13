@@ -12,14 +12,13 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router";
 
-
 const Apartment = () => {
   const axiosSecure = useAxiosSecure();
   const [page, setPage] = useState(1);
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
+  
 
   // search state
   const [minRent, setMinRent] = useState("");

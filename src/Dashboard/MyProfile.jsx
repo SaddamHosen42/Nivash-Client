@@ -14,10 +14,13 @@ import { HiLocationMarker } from "react-icons/hi";
 import useAuth from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useUserRole from "../hooks/useUserRole";
 
 const MyProfile = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+const {isUser}=useUserRole();
+
 
   // Fetch user's agreements
   const { data: agreements = [], isLoading } = useQuery({
@@ -31,9 +34,6 @@ const MyProfile = () => {
 
   // Get user's agreement (since user can have only one agreement)
   const userAgreement = agreements[0];
-
-  // Check if status is pending to show null values
-  const isPending = userAgreement?.status === 'pending';
 
   if (isLoading) {
     return (
@@ -56,7 +56,9 @@ const MyProfile = () => {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold  text-purple-600  mb-2">My Profile</h1>
+          <h1 className="text-4xl font-bold  text-purple-600  mb-2">
+            My Profile
+          </h1>
           <p className="text-gray-600 text-lg">
             Manage your personal information and apartment details
           </p>
@@ -210,7 +212,7 @@ const MyProfile = () => {
                           Agreement Date
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                   demo
+                          {isUser ? 'None' : new Date(userAgreement?.requestDate).toLocaleDateString()}
                         </p>
                       </div>
                     </motion.div>
@@ -226,9 +228,11 @@ const MyProfile = () => {
                         <FaBuilding className="text-indigo-600 text-xl" />
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-500">Floor</p>
+                        <p className="text-sm font-medium text-gray-500">
+                          Floor
+                        </p>
                         <p className="text-lg font-semibold text-gray-900">
-                         demo
+                          {isUser ? 'None' : `${userAgreement?.floor}th Floor`}
                         </p>
                       </div>
                     </motion.div>
@@ -244,9 +248,11 @@ const MyProfile = () => {
                         <HiLocationMarker className="text-cyan-600 text-xl" />
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-500">Block</p>
+                        <p className="text-sm font-medium text-gray-500">
+                          Block
+                        </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          demo
+                          {isUser ? 'None' : `Block ${userAgreement?.block}`}
                         </p>
                       </div>
                     </motion.div>
@@ -266,7 +272,7 @@ const MyProfile = () => {
                           Apartment No
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          demo
+                          {isUser ? 'None' : userAgreement?.apartmentNo}
                         </p>
                       </div>
                     </motion.div>
@@ -286,7 +292,7 @@ const MyProfile = () => {
                           Monthly Rent
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          demo
+                          {isUser ? 'None' : `৳${userAgreement?.rent?.toLocaleString()}`}
                         </p>
                       </div>
                     </motion.div>
@@ -318,10 +324,12 @@ const MyProfile = () => {
                       No Apartment Agreement Yet
                     </h3>
                     <p className="text-gray-500 text-lg leading-relaxed max-w-md mx-auto mb-8">
-                      You haven't created any apartment agreement yet. Browse available apartments and create an agreement to get started.
+                      You haven't created any apartment agreement yet. Browse
+                      available apartments and create an agreement to get
+                      started.
                     </p>
                   </motion.div>
-                  
+
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
