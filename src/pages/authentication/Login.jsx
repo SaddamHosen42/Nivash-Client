@@ -34,7 +34,6 @@ const Login = () => {
         navigate(redirectTo);
         //console.log(user);
         Swal.fire({
-          // position: "top-end",
           icon: "success",
           title: "Login successful!",
           text: `Welcome, ${user.displayName}!`,
