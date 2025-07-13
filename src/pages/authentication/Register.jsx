@@ -16,6 +16,7 @@ const Register = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm();
   const { createUser, setUser, updateUser } = useAuth();
@@ -26,6 +27,21 @@ const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const axiosInstance = useAxios();
+
+  // Watch password for real-time validation
+  const password = watch("password", "");
+
+  // Password validation functions
+  const validatePassword = (password) => {
+    const validations = {
+      length: password.length >= 6,
+      uppercase: /[A-Z]/.test(password),
+      lowercase: /[a-z]/.test(password),
+    };
+    return validations;
+  };
+
+  const passwordValidations = validatePassword(password);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -376,8 +392,17 @@ const Register = () => {
                         type={showPassword ? "text" : "password"}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors pl-12 pr-12"
                         {...register("password", {
-                          required: true,
-                          minLength: 6,
+                          required: "Password is required",
+                          minLength: {
+                            value: 6,
+                            message: "Password must be at least 6 characters long"
+                          },
+                          validate: {
+                            hasUppercase: (value) =>
+                              /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
+                            hasLowercase: (value) =>
+                              /[a-z]/.test(value) || "Password must contain at least one lowercase letter"
+                          }
                         })}
                         placeholder="Create a password"
                         required
@@ -393,16 +418,45 @@ const Register = () => {
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                       </button>
                     </div>
+                    
+                    {/* Password Strength Indicator */}
+                    {password && (
+                      <motion.div
+                        className="mt-3 p-3 bg-gray-50 rounded-lg border"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <p className="text-xs font-semibold text-gray-700 mb-2">Password Strength:</p>
+                        <div className="space-y-1">
+                          <div className={`flex items-center gap-2 text-xs ${passwordValidations.length ? 'text-green-600' : 'text-red-500'}`}>
+                            <span>{passwordValidations.length ? '✓' : '✗'}</span>
+                            <span>At least 6 characters</span>
+                          </div>
+                          <div className={`flex items-center gap-2 text-xs ${passwordValidations.uppercase ? 'text-green-600' : 'text-red-500'}`}>
+                            <span>{passwordValidations.uppercase ? '✓' : '✗'}</span>
+                            <span>One uppercase letter (A-Z)</span>
+                          </div>
+                          <div className={`flex items-center gap-2 text-xs ${passwordValidations.lowercase ? 'text-green-600' : 'text-red-500'}`}>
+                            <span>{passwordValidations.lowercase ? '✓' : '✗'}</span>
+                            <span>One lowercase letter (a-z)</span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
                     {errors.password && (
-                      <motion.p
-                        className="text-red-500 text-sm flex items-center gap-2"
+                      <motion.div
+                        className="space-y-1"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <span>⚠️</span>
-                        Password must be at least 6 characters long
-                      </motion.p>
+                        <p className="text-red-500 text-sm flex items-center gap-2">
+                          <span>⚠️</span>
+                          {errors.password.message}
+                        </p>
+                      </motion.div>
                     )}
                   </motion.div>
 

@@ -316,7 +316,7 @@ const Navbar = () => {
                           : "text-slate-900 bg-white hover:bg-gray-100"
                       }`}
                     >
-                      Early Access
+                      login
                     </Link>
                   )}
                 </div>
