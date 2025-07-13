@@ -10,6 +10,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import MyProfile from "../Dashboard/MyProfile";
 import DashboardHome from "../Dashboard/DashboardHome";
 import Announcements from "../Dashboard/Announcements";
+import Forbidden from "../forbidden-page/Forbidden";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
         path: "apartment",
         element: <Apartment />,
       },
+      {
+        path:"forbidden",
+        Component:Forbidden
+      }
     ],
   },
   {
