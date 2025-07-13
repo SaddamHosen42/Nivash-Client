@@ -29,21 +29,11 @@ const MyProfile = () => {
     enabled: !!user?.email,
   });
 
-  // Get the latest agreement (assuming user can have only one active agreement)
-  const userAgreement = agreements[0] || null;
-
-  const formatDate = (dateString) => {
-    if (!dateString) return "None";
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  //console.log(userAgreement?.status);
+  // Get user's agreement (since user can have only one agreement)
+  const userAgreement = agreements[0];
 
   // Check if status is pending to show null values
+  const isPending = userAgreement?.status === 'pending';
 
   if (isLoading) {
     return (
@@ -178,117 +168,179 @@ const MyProfile = () => {
             </div>
 
             <div className="p-8">
-              {/* Agreement Status */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="mb-8 text-center"
-              >
-                <div className="flex items-center justify-center space-x-3 mb-4">
-                  <FaHourglassHalf className="text-2xl text-gray-400" />
-                  <span className="text-lg font-medium text-gray-700">
-                    Agreement Status
-                  </span>
-                </div>
-                <span
-                  className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                    userAgreement?.status === "pending"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : "bg-green-100 text-green-800"
-                  }`}
-                >
-                  {userAgreement?.status}
-                </span>
-              </motion.div>
+              {userAgreement ? (
+                <>
+                  {/* Agreement Status */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="mb-8 text-center"
+                  >
+                    <div className="flex items-center justify-center space-x-3 mb-4">
+                      <FaHourglassHalf className="text-2xl text-gray-400" />
+                      <span className="text-lg font-medium text-gray-700">
+                        Agreement Status
+                      </span>
+                    </div>
+                    <span
+                      className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                        userAgreement?.status === "pending"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-green-100 text-green-800"
+                      }`}
+                    >
+                      {userAgreement?.status}
+                    </span>
+                  </motion.div>
 
-              <div className="space-y-6">
-                {/* Agreement Accept Date */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
-                >
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <FaCalendarAlt className="text-purple-600 text-xl" />
+                  <div className="space-y-6">
+                    {/* Agreement Accept Date */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.5 }}
+                      className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
+                    >
+                      <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <FaCalendarAlt className="text-purple-600 text-xl" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-500">
+                          Agreement Date
+                        </p>
+                        <p className="text-lg font-semibold text-gray-900">
+                   demo
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    {/* Floor */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.6 }}
+                      className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
+                    >
+                      <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                        <FaBuilding className="text-indigo-600 text-xl" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-500">Floor</p>
+                        <p className="text-lg font-semibold text-gray-900">
+                         demo
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    {/* Block */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.7 }}
+                      className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
+                    >
+                      <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center">
+                        <HiLocationMarker className="text-cyan-600 text-xl" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-500">Block</p>
+                        <p className="text-lg font-semibold text-gray-900">
+                          demo
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    {/* Apartment Number */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.8 }}
+                      className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
+                    >
+                      <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <FaDoorOpen className="text-orange-600 text-xl" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-500">
+                          Apartment No
+                        </p>
+                        <p className="text-lg font-semibold text-gray-900">
+                          demo
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    {/* Rent */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.9 }}
+                      className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
+                    >
+                      <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                        <FaDollarSign className="text-red-600 text-xl" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-500">
+                          Monthly Rent
+                        </p>
+                        <p className="text-lg font-semibold text-gray-900">
+                          demo
+                        </p>
+                      </div>
+                    </motion.div>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-500">
-                      Agreement Date
+                </>
+              ) : (
+                /* No Agreement - Beautiful Empty State */
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="text-center py-12"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                    className="mb-8"
+                  >
+                    <div className="w-32 h-32 mx-auto bg-gradient-to-br from-emerald-100 to-teal-100 rounded-full flex items-center justify-center mb-6 shadow-lg">
+                      <motion.div
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <FaBuilding className="w-16 h-16 text-emerald-500" />
+                      </motion.div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-700 mb-4">
+                      No Apartment Agreement Yet
+                    </h3>
+                    <p className="text-gray-500 text-lg leading-relaxed max-w-md mx-auto mb-8">
+                      You haven't created any apartment agreement yet. Browse available apartments and create an agreement to get started.
                     </p>
-                    <p className="text-lg font-semibold text-gray-900">demo</p>
-                  </div>
-                </motion.div>
-
-                {/* Floor */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
-                >
-                  <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
-                    <FaBuilding className="text-indigo-600 text-xl" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-500">Floor</p>
-                    <p className="text-lg font-semibold text-gray-900">demo</p>
-                  </div>
-                </motion.div>
-
-                {/* Block */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                  className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
-                >
-                  <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center">
-                    <HiLocationMarker className="text-cyan-600 text-xl" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-500">Block</p>
-                    <p className="text-lg font-semibold text-gray-900">demo</p>
-                  </div>
-                </motion.div>
-
-                {/* Apartment Number */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                  className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
-                >
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <FaDoorOpen className="text-orange-600 text-xl" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-500">
-                      Apartment No
+                  </motion.div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.8 }}
+                    className="space-y-4"
+                  >
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
+                    >
+                      Browse Apartments
+                    </motion.button>
+                    <p className="text-sm text-gray-400">
+                      Create your first apartment agreement today
                     </p>
-                    <p className="text-lg font-semibold text-gray-900">demo</p>
-                  </div>
+                  </motion.div>
                 </motion.div>
-
-                {/* Rent */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.9 }}
-                  className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
-                >
-                  <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                    <FaDollarSign className="text-red-600 text-xl" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-500">
-                      Monthly Rent
-                    </p>
-                    <p className="text-lg font-semibold text-gray-900">demo</p>
-                  </div>
-                </motion.div>
-              </div>
+              )}
             </div>
           </motion.div>
         </div>
