@@ -11,6 +11,10 @@ import MyProfile from "../Dashboard/MyProfile";
 import DashboardHome from "../Dashboard/DashboardHome";
 import Announcements from "../Dashboard/Announcements";
 import Forbidden from "../forbidden-page/Forbidden";
+import ManageMembers from "../Dashboard/Admin/ManageMembers";
+import AgreementRequests from "../Dashboard/Admin/AgreementRequests";
+import MakeAnnouncement from "../Dashboard/Admin/MakeAnnouncement";
+import AdminProfile from "../Dashboard/Admin/AdminProfile";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +69,26 @@ export const router = createBrowserRouter([
         path: "announcements",
         element: <Announcements />,
       },
+      {
+        path:"manageMembers",
+        element:<ManageMembers />
+      },
+      {
+        path:"agreementRequests",
+        element:<AgreementRequests />
+      },
+      {
+        path:"makeAnnouncement",
+        element:<MakeAnnouncement />
+      },
+      {
+        path:"manageCoupons",
+        element:<h1>Manage Coupons</h1>
+      },
+      {
+        path:"adminProfile",
+        element:<AdminProfile />
+      }
     ],
   },
 ]);

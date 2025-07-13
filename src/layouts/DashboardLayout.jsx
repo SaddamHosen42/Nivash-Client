@@ -1,16 +1,20 @@
 import React from "react";
 import useAuth from "../hooks/useAuth";
-import { FaBars, FaSignOutAlt, FaUser } from "react-icons/fa";
+import useUserRole from "../hooks/useUserRole";
+import { FaBars, FaSignOutAlt, FaUser, FaUsers, FaCog } from "react-icons/fa";
+import { MdAdminPanelSettings, MdRequestPage } from "react-icons/md";
+import { TfiAnnouncement } from "react-icons/tfi";
+import { RiCoupon3Fill } from "react-icons/ri";
 import NivashLogo from "../components/shared/NivashLogo";
 import { NavLink, Outlet } from "react-router";
 import { IoHomeSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { TfiAnnouncement } from "react-icons/tfi";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
   const { user, logOut } = useAuth();
+  const { isAdmin } = useUserRole();
 
   const navLinks = (
     <>
@@ -19,16 +23,47 @@ const DashboardLayout = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
       >
+        {isAdmin ? (
+          <NavLink
+            to="/dashboard/adminProfile"
+            className={({ isActive }) => `
+                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
+                  `}
+          >
+            <MdAdminPanelSettings className="text-xl relative z-10" />
+            <span className="font-semibold relative z-10">Admin Profile</span>
+          </NavLink>
+        ) : (
+          <NavLink
+            to="/dashboard/myProfile"
+            className={({ isActive }) => `
+                   flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
+                  `}
+          >
+            <CgProfile className="text-xl relative z-10" />
+            <span className="font-semibold relative z-10">My Profile</span>
+          </NavLink>
+        )}
         <NavLink
           to="/dashboard"
           end
           className={({ isActive }) => `
-                    flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 group relative overflow-hidden
-                    ${
-                      isActive
-                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transform scale-105"
-                        : "text-gray-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-600"
-                    }
+                   flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
                   `}
         >
           <IoHomeSharp className="text-xl relative z-10" />
@@ -40,22 +75,7 @@ const DashboardLayout = () => {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3, delay: 0.1 }}
-      >
-        <NavLink
-          to="/dashboard/myProfile"
-          className={({ isActive }) => `
-                    flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 group relative overflow-hidden
-                    ${
-                      isActive
-                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transform scale-105"
-                        : "text-gray-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-600"
-                    }
-                  `}
-        >
-          <CgProfile className="text-xl relative z-10" />
-          <span className="font-semibold relative z-10">My Profile</span>
-        </NavLink>
-      </motion.div>
+      ></motion.div>
 
       <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -65,12 +85,12 @@ const DashboardLayout = () => {
         <NavLink
           to="/dashboard/announcements"
           className={({ isActive }) => `
-                    flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 group relative overflow-hidden
-                    ${
-                      isActive
-                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transform scale-105"
-                        : "text-gray-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-blue-600"
-                    }
+                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
                   `}
         >
           <TfiAnnouncement className="text-xl relative z-10" />
@@ -79,7 +99,101 @@ const DashboardLayout = () => {
       </motion.div>
     </>
   );
+  const adminNavLinks = (
+    <>
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: 0.3 }}
+      ></motion.div>
 
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
+      >
+        <NavLink
+          to="/dashboard/manageMembers"
+          className={({ isActive }) => `
+                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
+                  `}
+        >
+          <FaUsers className="text-xl relative z-10" />
+          <span className="font-semibold relative z-10">Manage Members</span>
+        </NavLink>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: 0.5 }}
+      >
+        <NavLink
+          to="/dashboard/makeAnnouncement"
+          className={({ isActive }) => `
+                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
+                  `}
+        >
+          <TfiAnnouncement className="text-xl relative z-10" />
+          <span className="font-semibold relative z-10">Make Announcement</span>
+        </NavLink>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: 0.6 }}
+      >
+        <NavLink
+          to="/dashboard/agreementRequests"
+          className={({ isActive }) => `
+                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
+                  `}
+        >
+          <MdRequestPage className="text-xl relative z-10" />
+          <span className="font-semibold relative z-10">
+            Agreement Requests
+          </span>
+        </NavLink>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: 0.7 }}
+      >
+        <NavLink
+          to="/dashboard/manageCoupons"
+          className={({ isActive }) => `
+                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
+                  `}
+        >
+          <RiCoupon3Fill className="text-xl relative z-10" />
+          <span className="font-semibold relative z-10">Manage Coupons</span>
+        </NavLink>
+      </motion.div>
+    </>
+  );
   const handleLogOut = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -187,7 +301,7 @@ const DashboardLayout = () => {
         ></label>
 
         {/* Beautiful Modern Sidebar */}
-        <div className="bg-white min-h-full w-80 shadow-2xl">
+        <div className="bg-white min-h-full w-80 shadow-2xl flex flex-col">
           {/* Sidebar Header */}
           <div className="p-6 bg-gradient-to-br from-slate-800 via-gray-900 to-black relative overflow-hidden">
             {/* Background decoration */}
@@ -230,20 +344,39 @@ const DashboardLayout = () => {
             </div>
           </div>
 
-          {/* Navigation Menu */}
-          <div className="p-6">
-            <nav className="space-y-3">{navLinks}</nav>
-
-            {/* Logout Section */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gray-50 border-t">
-              <button
-                onClick={handleLogOut}
-                className="w-full flex items-center justify-center space-x-3 px-4 py-3 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-all duration-200 group"
-              >
-                <FaSignOutAlt className="text-lg" />
-                <span className="font-medium">Logout</span>
-              </button>
+          {/* Navigation Menu - Scrollable */}
+          <div className="flex-1 overflow-y-auto">
+            <div className="p-6">
+              <nav className="space-y-3">
+                {navLinks}
+                {isAdmin && (
+                  <>
+                    {/* Admin Section Divider */}
+                    <div className="flex items-center my-6">
+                      <div className="flex-grow h-px bg-gradient-to-r from-blue-200 to-purple-200"></div>
+                      <div className="px-3">
+                        <span className="text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                          Admin Panel
+                        </span>
+                      </div>
+                      <div className="flex-grow h-px bg-gradient-to-r from-purple-200 to-blue-200"></div>
+                    </div>
+                    {adminNavLinks}
+                  </>
+                )}
+              </nav>
             </div>
+          </div>
+
+          {/* Logout Section - Fixed at bottom */}
+          <div className="p-4 bg-gray-50 border-t mt-auto">
+            <button
+              onClick={handleLogOut}
+              className="w-full flex items-center justify-center space-x-3 px-4 py-3 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-all duration-200 group"
+            >
+              <FaSignOutAlt className="text-lg" />
+              <span className="font-medium">Logout</span>
+            </button>
           </div>
         </div>
       </div>

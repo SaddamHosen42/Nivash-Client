@@ -8,4 +8,4 @@ const DashboardHome = () => {
     );
 };
 
-export default DashboardHome;<h1>welcome dasboard home</h1>
+export default DashboardHome;

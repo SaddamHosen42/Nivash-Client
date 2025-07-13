@@ -47,7 +47,7 @@ const Navbar = () => {
         Home
       </NavLink>
       <NavLink
-        to="apartment"
+        to="/apartment"
         className={({ isActive }) =>
           `px-4 py-2 rounded-full font-medium transition-all duration-300 relative ${
             isActive
@@ -62,6 +62,24 @@ const Navbar = () => {
       >
         Apartments
       </NavLink>
+      {user && (
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            `px-4 py-2 rounded-full font-medium transition-all duration-300 relative ${
+              isActive
+                ? isScrolled
+                  ? "text-white bg-blue-600 shadow-lg"
+                  : "text-slate-900 bg-white shadow-lg"
+                : isScrolled
+                ? "text-gray-300 hover:text-white hover:bg-white/10"
+                : "text-white/80 hover:text-white hover:bg-white/10"
+            }`
+          }
+        >
+          Dashboard
+        </NavLink>
+      )}
     </>
   );
 
