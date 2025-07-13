@@ -225,7 +225,7 @@ const Login = () => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 0.9 }}
                   >
-                    <Link to="/forgot-password" className="text-indigo-600 text-sm font-medium hover:text-indigo-700">
+                    <Link className="text-indigo-600 text-sm font-medium hover:text-indigo-700">
                       Forgot your password?
                     </Link>
                   </motion.div>

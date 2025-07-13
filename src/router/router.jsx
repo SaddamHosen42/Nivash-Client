@@ -11,10 +11,11 @@ import MyProfile from "../Dashboard/MyProfile";
 import DashboardHome from "../Dashboard/DashboardHome";
 import Announcements from "../Dashboard/Announcements";
 import Forbidden from "../forbidden-page/Forbidden";
-import ManageMembers from "../Dashboard/Admin/ManageMembers";
-import AgreementRequests from "../Dashboard/Admin/AgreementRequests";
-import MakeAnnouncement from "../Dashboard/Admin/MakeAnnouncement";
 import AdminProfile from "../Dashboard/Admin/AdminProfile";
+import ManageMembers from "../Dashboard/Admin/ManageMembers";
+import MakeAnnouncement from "../Dashboard/Admin/MakeAnnouncement";
+import AgreementRequests from "../Dashboard/Admin/AgreementRequests";
+import ManageCoupons from "../Dashboard/Admin/ManageCoupons";
 
 export const router = createBrowserRouter([
   {
@@ -83,7 +84,7 @@ export const router = createBrowserRouter([
       },
       {
         path:"manageCoupons",
-        element:<h1>Manage Coupons</h1>
+        element:<ManageCoupons />
       },
       {
         path:"adminProfile",

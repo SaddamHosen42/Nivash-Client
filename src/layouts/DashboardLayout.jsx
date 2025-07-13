@@ -23,6 +23,28 @@ const DashboardLayout = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
       >
+        <NavLink
+          to="/dashboard"
+          end
+          className={({ isActive }) => `
+                   flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
+                  `}
+        >
+          <IoHomeSharp className="text-xl relative z-10" />
+          <span className="font-semibold relative z-10">Dashboard Home</span>
+        </NavLink>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+      >
         {isAdmin ? (
           <NavLink
             to="/dashboard/adminProfile"
@@ -54,28 +76,7 @@ const DashboardLayout = () => {
             <span className="font-semibold relative z-10">My Profile</span>
           </NavLink>
         )}
-        <NavLink
-          to="/dashboard"
-          end
-          className={({ isActive }) => `
-                   flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
-                  ${
-                    isActive
-                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
-                  }
-                  `}
-        >
-          <IoHomeSharp className="text-xl relative z-10" />
-          <span className="font-semibold relative z-10">Dashboard Home</span>
-        </NavLink>
       </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3, delay: 0.1 }}
-      ></motion.div>
 
       <motion.div
         initial={{ opacity: 0, x: -20 }}
