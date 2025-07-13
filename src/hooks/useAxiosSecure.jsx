@@ -12,7 +12,10 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
   axiosSecure.interceptors.request.use(
     (config) => {
-      config.headers.Authorization = `Bearer ${user.accessToken}`;
+      // Only add token if user exists and has accessToken
+      if (user && user.accessToken) {
+        config.headers.Authorization = `Bearer ${user.accessToken}`;
+      }
       return config;
     },
     (error) => {

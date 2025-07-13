@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -15,10 +15,10 @@ import { useNavigate, useLocation } from "react-router";
 const Apartment = () => {
   const axiosSecure = useAxiosSecure();
   const [page, setPage] = useState(1);
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
+  const queryClient = useQueryClient();
 
   // search state
   const [minRent, setMinRent] = useState("");
@@ -35,15 +35,44 @@ const Apartment = () => {
   } = useQuery({
     queryKey: ["apartments", page, rentFilter],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/apartments?page=${page}&limit=${limit}&min=${rentFilter.min}&max=${rentFilter.max}`
-      );
-      return res.data;
+      try {
+        const res = await axiosSecure.get(
+          `/apartments?page=${page}&limit=${limit}&min=${rentFilter.min}&max=${rentFilter.max}`
+        );
+        return res.data;
+      } catch (error) {
+        // Handle error gracefully if user is not authenticated
+        if (error.response?.status === 401) {
+          return { apartments: [], total: 0 };
+        }
+        throw error;
+      }
     },
     keepPreviousData: true,
+    retry: (failureCount, error) => {
+      // Don't retry on authentication errors
+      if (error.response?.status === 401) {
+        return false;
+      }
+      return failureCount < 3;
+    },
   });
 
   const handleAgreement = async (apt) => {
+    // Check if apartment is unavailable
+    if (apt.status === "unavailable") {
+      Swal.fire({
+        icon: "error",
+        title: "Apartment Not Available",
+        text: `Sorry! Apartment ${apt.apartmentNo} is already taken. Please choose another apartment.`,
+        confirmButtonText: "Find Another Apartment",
+        confirmButtonColor: "#ef4444",
+        background: '#ffffff',
+        iconColor: '#ef4444',
+      });
+      return;
+    }
+
     if (!user) {
       Swal.fire({
         icon: "warning",
@@ -53,15 +82,15 @@ const Apartment = () => {
         cancelButtonText: "Cancel",
         showCancelButton: true,
         confirmButtonColor: "#3b82f6",
-        cancelButtonColor: "#6b7280"
+        cancelButtonColor: "#6b7280",
       }).then((result) => {
         if (result.isConfirmed) {
           // Navigate to login with current location state for redirect back
-          navigate("/login", { 
-            state: { 
+          navigate("/login", {
+            state: {
               from: location.pathname + location.search, // Include query parameters
-              message: "Please login to create an apartment agreement"
-            }
+              message: "Please login to create an apartment agreement",
+            },
           });
         }
       });
@@ -70,14 +99,14 @@ const Apartment = () => {
 
     // Show confirmation dialog before creating agreement
     const confirmResult = await Swal.fire({
-      title: 'Confirm Agreement',
+      title: "Confirm Agreement",
       text: `Do you want to create an agreement for Apartment ${apt.apartmentNo}?`,
-      icon: 'question',
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3b82f6',
-      cancelButtonColor: '#ef4444',
-      confirmButtonText: 'Yes, Create Agreement',
-      cancelButtonText: 'Cancel'
+      confirmButtonColor: "#3b82f6",
+      cancelButtonColor: "#ef4444",
+      confirmButtonText: "Yes, Create Agreement",
+      cancelButtonText: "Cancel",
     });
 
     if (!confirmResult.isConfirmed) {
@@ -94,25 +123,30 @@ const Apartment = () => {
       rent: apt.rent,
       requestDate: new Date().toISOString(),
       status: "pending", // Default status
-   };
+    };
 
     try {
       const res = await axiosSecure.post("/agreements", agreementData);
+
       if (res.data.insertedId) {
+        await axiosSecure.patch(`/apartments/${apt._id}`);
         Swal.fire({
           icon: "success",
           title: "Agreement Created Successfully!",
           text: `Agreement for Apartment ${apt.apartmentNo} has been created successfully!`,
-          confirmButtonColor: '#10b981'
+          confirmButtonColor: "#10b981",
         });
+        queryClient.invalidateQueries(["apartments"]);
       }
     } catch (err) {
       console.error("Agreement creation error:", err);
       Swal.fire({
         icon: "error",
         title: "Agreement Failed",
-        text: err.response?.data?.message || "Failed to create agreement. Please try again.",
-        confirmButtonColor: '#ef4444'
+        text:
+          err.response?.data?.message ||
+          "Failed to create agreement. Please try again.",
+        confirmButtonColor: "#ef4444",
       });
     }
   };
@@ -236,8 +270,12 @@ const Apartment = () => {
                       className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute top-4 left-4">
-                      <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
-                        {apt.status === "available" ? "Available" : "Occupied"}
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium shadow-lg ${
+                        apt.status === 'available' 
+                          ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white'
+                          : 'bg-gradient-to-r from-red-500 to-red-600 text-white'
+                      }`}>
+                        {apt.status === 'available' ? 'Available' : 'Not Available'}
                       </span>
                     </div>
                     <div className="absolute top-4 right-4">
