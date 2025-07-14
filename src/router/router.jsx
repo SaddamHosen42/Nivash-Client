@@ -19,6 +19,7 @@ import ManageCoupons from "../Dashboard/Admin/ManageCoupons";
 import Payment from "../Dashboard/Member/Payment";
 import PaymentHistory from "../Dashboard/Member/PaymentHistory";
 import AdminRoute from "../routes/AdminRoute";
+import MemberRoute from "../routes/MemberRoute";
 
 export const router = createBrowserRouter([
   {
@@ -118,11 +119,19 @@ export const router = createBrowserRouter([
       // Member Routes
       {
         path: "payment",
-        element: <Payment />,
+        element: (
+          <MemberRoute>
+            <Payment />
+          </MemberRoute>
+        ),
       },
       {
         path: "paymentHistory",
-        element: <PaymentHistory />,
+        element: (
+          <MemberRoute>
+            <PaymentHistory />
+          </MemberRoute>
+        ),
       },
     ],
   },
