@@ -15,8 +15,11 @@ const SocialLogin = () => {
     logInWithGoogle()
       .then(async (result) => {
         const user = result.user;
+        console.log(user);
+        
         //save user data to database here
-            const userInfo = {
+        const userInfo = {
+          name: user.displayName,
           email: user.email,
           role: "user", // default role
           created_at: new Date().toISOString(),

@@ -53,6 +53,7 @@ const Register = () => {
         console.log(user);
         // update userinfo in the database here
         const userInfo = {
+          name:data.name,
           email: data.email,
           role: "user", // default role
           created_at: new Date().toISOString(),
