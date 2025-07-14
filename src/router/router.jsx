@@ -18,6 +18,7 @@ import AgreementRequests from "../Dashboard/Admin/AgreementRequests";
 import ManageCoupons from "../Dashboard/Admin/ManageCoupons";
 import Payment from "../Dashboard/Member/Payment";
 import PaymentHistory from "../Dashboard/Member/PaymentHistory";
+import AdminRoute from "../routes/AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -33,9 +34,9 @@ export const router = createBrowserRouter([
         element: <Apartment />,
       },
       {
-        path:"forbidden",
-        Component:Forbidden
-      }
+        path: "forbidden",
+        Component: Forbidden,
+      },
     ],
   },
   {
@@ -72,34 +73,57 @@ export const router = createBrowserRouter([
         path: "announcements",
         element: <Announcements />,
       },
+
+      // Admin Routes
       {
-        path:"manageMembers",
-        element:<ManageMembers />
+        path: "manageMembers",
+        element: (
+          <AdminRoute>
+            <ManageMembers />
+          </AdminRoute>
+        ),
       },
       {
-        path:"agreementRequests",
-        element:<AgreementRequests />
+        path: "agreementRequests",
+        element: (
+          <AdminRoute>
+            <AgreementRequests />
+          </AdminRoute>
+        ),
       },
       {
-        path:"makeAnnouncement",
-        element:<MakeAnnouncement />
+        path: "makeAnnouncement",
+        element: (
+          <AdminRoute>
+            <MakeAnnouncement />
+          </AdminRoute>
+        ),
       },
       {
-        path:"manageCoupons",
-        element:<ManageCoupons />
+        path: "manageCoupons",
+        element: (
+          <AdminRoute>
+            <ManageCoupons />
+          </AdminRoute>
+        ),
       },
       {
-        path:"adminProfile",
-        element:<AdminProfile />
+        path: "adminProfile",
+        element: (
+          <AdminRoute>
+            <AdminProfile />
+          </AdminRoute>
+        ),
+      },
+      // Member Routes
+      {
+        path: "payment",
+        element: <Payment />,
       },
       {
-        path:"payment",
-        element:<Payment />
+        path: "paymentHistory",
+        element: <PaymentHistory />,
       },
-      {
-        path:"paymentHistory",
-        element:<PaymentHistory />
-      }
     ],
   },
 ]);
