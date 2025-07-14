@@ -80,7 +80,7 @@ const ManageMembers = () => {
   });
 
   const handleRemoveMember = (userEmail, userName) => {
-    console.log("handleRemoveMember called with:", { userEmail, userName });
+   // console.log("handleRemoveMember called with:", { userEmail, userName });
 
     Swal.fire({
       title: "Remove Member?",
