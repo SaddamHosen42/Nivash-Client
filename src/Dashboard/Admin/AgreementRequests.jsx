@@ -23,8 +23,13 @@ const AgreementRequests = () => {
   });
   // Mutation for updating status and user role
   const updateStatus = async ({ id, status, userEmail, action }) => {
-    // Update agreement status
-    await axiosSecure.patch(`/agreements/status/${id}`, { status });
+    // Update agreement status with accept date
+    const updateData = { 
+      status,
+      acceptDate: new Date().toISOString() // Add current date when admin takes action
+    };
+    
+    await axiosSecure.patch(`/agreements/status/${id}`, updateData);
     
     // If approved, update user role to member
     if (action === "approve") {
