@@ -197,22 +197,53 @@ const {isUser}=useUserRole();
                   </motion.div>
 
                   <div className="space-y-6">
-                    {/* Agreement Accept Date */}
+                    {/* Agreement Request Date */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.5 }}
                       className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
                     >
-                      <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <FaCalendarAlt className="text-purple-600 text-xl" />
+                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <FaCalendarAlt className="text-blue-600 text-xl" />
                       </div>
                       <div className="flex-1">
                         <p className="text-sm font-medium text-gray-500">
-                          Agreement Date
+                          Agreement Request Date
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          {isUser ? 'None' : new Date(userAgreement?.requestDate).toLocaleDateString()}
+                          {isUser ? 'None' : new Date(userAgreement?.requestDate).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    {/* Agreement Accept Date */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.6 }}
+                      className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
+                    >
+                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <FaCalendarAlt className="text-green-600 text-xl" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-500">
+                          Agreement Accept Date
+                        </p>
+                        <p className="text-lg font-semibold text-gray-900">
+                          {isUser ? 'None' : userAgreement?.acceptDate ? 
+                            new Date(userAgreement.acceptDate).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            }) : 
+                            userAgreement?.status === 'pending' ? 'Pending approval' : 'Not available'
+                          }
                         </p>
                       </div>
                     </motion.div>
@@ -221,7 +252,7 @@ const {isUser}=useUserRole();
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.6 }}
+                      transition={{ duration: 0.5, delay: 0.7 }}
                       className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
                     >
                       <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
@@ -241,7 +272,7 @@ const {isUser}=useUserRole();
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.7 }}
+                      transition={{ duration: 0.5, delay: 0.8 }}
                       className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
                     >
                       <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center">
@@ -261,7 +292,7 @@ const {isUser}=useUserRole();
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.8 }}
+                      transition={{ duration: 0.5, delay: 0.9 }}
                       className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
                     >
                       <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
@@ -281,7 +312,7 @@ const {isUser}=useUserRole();
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.9 }}
+                      transition={{ duration: 0.5, delay: 1.0 }}
                       className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl"
                     >
                       <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
