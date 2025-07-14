@@ -1,8 +1,15 @@
 import React from "react";
 import useAuth from "../hooks/useAuth";
 import useUserRole from "../hooks/useUserRole";
-import { FaBars, FaSignOutAlt, FaUser, FaUsers, FaCog } from "react-icons/fa";
-import { MdAdminPanelSettings, MdRequestPage } from "react-icons/md";
+import {
+  FaBars,
+  FaSignOutAlt,
+  FaUser,
+  FaUsers,
+  FaCog,
+  FaMoneyCheckAlt,
+} from "react-icons/fa";
+import { MdAdminPanelSettings, MdPayment, MdRequestPage } from "react-icons/md";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { RiCoupon3Fill } from "react-icons/ri";
 import NivashLogo from "../components/shared/NivashLogo";
@@ -14,7 +21,7 @@ import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
   const { user, logOut } = useAuth();
-  const { isAdmin } = useUserRole();
+  const { isAdmin, isMember } = useUserRole();
 
   const navLinks = (
     <>
@@ -105,12 +112,6 @@ const DashboardLayout = () => {
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3, delay: 0.3 }}
-      ></motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3, delay: 0.4 }}
       >
         <NavLink
@@ -191,6 +192,50 @@ const DashboardLayout = () => {
         >
           <RiCoupon3Fill className="text-xl relative z-10" />
           <span className="font-semibold relative z-10">Manage Coupons</span>
+        </NavLink>
+      </motion.div>
+    </>
+  );
+  const memberNavLinks = (
+    <>
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
+      >
+        <NavLink
+          to="/dashboard/payment"
+          className={({ isActive }) => `
+                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
+                  `}
+        >
+          <MdPayment className="text-xl relative z-10" />
+          <span className="font-semibold relative z-10">Make payment</span>
+        </NavLink>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
+      >
+        <NavLink
+          to="/dashboard/paymentHistory"
+          className={({ isActive }) => `
+                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
+                  ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border-l-4 border-blue-600"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                  }
+                  `}
+        >
+          <FaMoneyCheckAlt className="text-xl relative z-10" />
+          <span className="font-semibold relative z-10">Payment History</span>
         </NavLink>
       </motion.div>
     </>
@@ -350,6 +395,21 @@ const DashboardLayout = () => {
             <div className="p-6">
               <nav className="space-y-3">
                 {navLinks}
+                {isMember && (
+                  <>
+                    {/* Member Section Divider */}
+                    <div className="flex items-center my-6">
+                      <div className="flex-grow h-px bg-gradient-to-r from-green-200 to-teal-200"></div>
+                      <div className="px-3">
+                        <span className="text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
+                          Member Panel
+                        </span>
+                      </div>
+                      <div className="flex-grow h-px bg-gradient-to-r from-teal-200 to-green-200"></div>
+                    </div>
+                    {memberNavLinks}
+                  </>
+                )}
                 {isAdmin && (
                   <>
                     {/* Admin Section Divider */}
