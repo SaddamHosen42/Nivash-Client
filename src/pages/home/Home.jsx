@@ -2,6 +2,7 @@ import React from 'react';
 import AboutBuilding from '../../components/home/AboutBuilding';
 import Banner from '../../components/home/Banner';
 import LocationMap from '../../components/home/LocationMap';
+import Coupons from '../../components/home/Coupons';
 
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
             </header>
             <main>
                 <AboutBuilding/>
+                <Coupons/>
                 <LocationMap/>
             </main>
         </div>
