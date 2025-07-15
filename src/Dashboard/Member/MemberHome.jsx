@@ -319,7 +319,7 @@ const MemberHome = () => {
                       <FaReceipt className="text-green-600" />
                       <div>
                         <p className="font-semibold text-gray-800">
-                          ৳{payment.amount?.toLocaleString()}
+                          ৳{payment.finalAmount?.toLocaleString()}
                         </p>
                         <p className="text-sm text-gray-600">
                           {payment.month} {payment.year}
@@ -331,7 +331,7 @@ const MemberHome = () => {
                         Paid
                       </p>
                       <p className="text-xs text-gray-400">
-                        {new Date(payment.date).toLocaleDateString()}
+                        {new Date(payment.paymentDate).toLocaleDateString()}
                       </p>
                     </div>
                   </motion.div>

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";//eslint-disable-line
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import loginAnimation from "../../lottie-animation/Animation-login.json";
 import Lottie from "lottie-react";
 import SocialLogin from "./SocialLogin";
+import NivashLogo from "../../components/shared/NivashLogo";
 
 const Login = () => {
   const {
@@ -56,6 +57,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 py-12 px-4">
+      <NivashLogo className="mb-8" />
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Animation & Welcome */}

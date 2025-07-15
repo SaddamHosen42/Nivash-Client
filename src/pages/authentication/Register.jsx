@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";//eslint-disable-line
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -10,6 +10,7 @@ import SocialLogin from "./SocialLogin";
 import Lottie from "lottie-react";
 import registerAnimation from "../../lottie-animation/Animation-register.json";
 import useAxios from "../../hooks/useAxios";
+import NivashLogo from "../../components/shared/NivashLogo";
 
 const Register = () => {
   const {
@@ -135,8 +136,11 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12 px-4">
+       <NivashLogo className="mb-8" />
       <div className="max-w-6xl mx-auto">
+       
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
           {/* Left Side - Animation & Welcome */}
           <motion.div
             className="hidden lg:block space-y-8"
