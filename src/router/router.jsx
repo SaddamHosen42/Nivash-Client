@@ -20,6 +20,7 @@ import PaymentHistory from "../Dashboard/Member/PaymentHistory";
 import AdminRoute from "../routes/AdminRoute";
 import MemberRoute from "../routes/MemberRoute";
 import Payment from "../Dashboard/Member/Payment/Payment";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: "forbidden",
         Component: Forbidden,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },
@@ -132,6 +137,10 @@ export const router = createBrowserRouter([
             <PaymentHistory />
           </MemberRoute>
         ),
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },
