@@ -16,11 +16,10 @@ import ManageMembers from "../Dashboard/Admin/ManageMembers";
 import MakeAnnouncement from "../Dashboard/Admin/MakeAnnouncement";
 import AgreementRequests from "../Dashboard/Admin/AgreementRequests";
 import ManageCoupons from "../Dashboard/Admin/ManageCoupons";
-
 import PaymentHistory from "../Dashboard/Member/PaymentHistory";
 import AdminRoute from "../routes/AdminRoute";
 import MemberRoute from "../routes/MemberRoute";
-import Payment from "../Dashboard/Member/Pyment/Payment";
+import Payment from "../Dashboard/Member/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
