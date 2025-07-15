@@ -8,7 +8,7 @@ import {
   FaBuilding,
 } from "react-icons/fa";
 import { MdEmail, MdDashboard } from "react-icons/md";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";//eslint-disable-line
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";

@@ -1,7 +1,7 @@
 import React from 'react';
 import { RiCoupon3Fill } from 'react-icons/ri';
 import { FaPercentage, FaGift, FaCopy, FaCheck } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';//eslint-disable-line
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useState } from 'react';
@@ -50,7 +50,7 @@ const Coupons = () => {
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
+      <section id="coupons" className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center items-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
@@ -61,7 +61,7 @@ const Coupons = () => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 relative overflow-hidden">
+    <section id="coupons" className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
@@ -222,7 +222,7 @@ const Coupons = () => {
       </div>
 
       {/* Custom CSS for animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes blob {
           0%, 100% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(30px, -50px) scale(1.1); }

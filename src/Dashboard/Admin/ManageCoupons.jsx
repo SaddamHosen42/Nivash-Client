@@ -7,7 +7,7 @@ import {
   FaToggleOn,
   FaToggleOff,
 } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";//eslint-disable-line
 import Swal from "sweetalert2";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
