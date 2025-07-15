@@ -3,7 +3,6 @@ import {
   FaUser,
   FaCalendarAlt,
   FaClipboardList,
-  FaBell,
   FaBuilding,
   FaMapMarkerAlt,
   FaDollarSign,
@@ -13,13 +12,13 @@ import {
   FaDoorOpen,
 } from "react-icons/fa";
 import { MdAnnouncement, MdPayment } from "react-icons/md";
-import { RiCoupon3Fill } from "react-icons/ri";
 import { motion } from "framer-motion"; // eslint-disable-line
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import CouponsCard from "../../components/CouponsCard";
+import AnnouncementCard from "../../components/AnnouncementCard";
 
 const MemberHome = () => {
   const { user } = useAuth();
@@ -40,16 +39,6 @@ const MemberHome = () => {
     enabled: !!user?.email,
   });
 
-  // Fetch recent announcements
-  const { data: announcements = [], isLoading: announcementsLoading } =
-    useQuery({
-      queryKey: ["recentAnnouncements"],
-      queryFn: async () => {
-        const response = await axiosSecure.get("/announcements");
-        return response.data.slice(0, 3); // Limit to 3 announcements
-      },
-    });
-
   // Fetch payment history
   const { data: recentPayments = [], isLoading: paymentsLoading } = useQuery({
     queryKey: ["recentPayments", user?.email],
@@ -60,14 +49,6 @@ const MemberHome = () => {
     enabled: !!user?.email,
   });
 
-  // Fetch available coupons
-  const { data: availableCoupons = [], isLoading: couponsLoading } = useQuery({
-    queryKey: ["availableCoupons"],
-    queryFn: async () => {
-      const response = await axiosSecure.get("/coupons");
-      return response.data.filter((coupon) => coupon.isAvailable).slice(0, 3);
-    },
-  });
 
   // Quick actions for members
   const quickActions = [
@@ -294,56 +275,7 @@ const MemberHome = () => {
             variants={itemVariants}
             className="bg-white rounded-2xl shadow-xl p-8"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-gray-800 flex items-center">
-                <FaBell className="mr-3 text-blue-600" />
-                Recent Announcements
-              </h3>
-              <Link
-                to="/dashboard/announcements"
-                className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-              >
-                View All
-              </Link>
-            </div>
-
-            {announcementsLoading ? (
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="animate-pulse">
-                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                    <div className="h-3 bg-gray-200 rounded w-3/4"></div>
-                  </div>
-                ))}
-              </div>
-            ) : announcements.length > 0 ? (
-              <div className="space-y-4">
-                {announcements.map((announcement, index) => (
-                  <motion.div
-                    key={announcement._id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <h4 className="font-semibold text-gray-800 mb-1">
-                      {announcement.title}
-                    </h4>
-                    <p className="text-gray-600 text-sm line-clamp-2">
-                      {announcement.description}
-                    </p>
-                    <p className="text-xs text-gray-400 mt-2">
-                      {new Date(announcement.date).toLocaleDateString()}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-gray-500">
-                <FaBell className="mx-auto text-4xl mb-4 opacity-50" />
-                <p>No announcements yet</p>
-              </div>
-            )}
+            <AnnouncementCard />
           </motion.div>
 
           {/* Payment Summary */}
@@ -426,44 +358,7 @@ const MemberHome = () => {
             variants={itemVariants}
             className="bg-white rounded-2xl shadow-xl p-8"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-gray-800 flex items-center">
-                <RiCoupon3Fill className="mr-3 text-pink-600" />
-                Available Coupons
-              </h3>
-              <div className="text-center">
-                <button
-                  onClick={() => {
-                    // Navigate to home page with hash
-                    window.location.href = "/#coupons";
-                  }}
-                  className="text-pink-600 hover:text-pink-800 text-sm font-medium cursor-pointer"
-                >
-                  View All Coupons
-                </button>
-              </div>
-            </div>
-
-            {couponsLoading ? (
-              <div className="space-y-4">
-                {[1, 2].map((i) => (
-                  <div key={i} className="animate-pulse">
-                    <div className="h-16 bg-gray-200 rounded-lg"></div>
-                  </div>
-                ))}
-              </div>
-            ) : availableCoupons.length > 0 ? (
-              <div className="space-y-4">
-                {availableCoupons.map((coupon, index) => (
-                  <CouponsCard coupon={coupon} index={index} key={coupon._id} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-gray-500">
-                <RiCoupon3Fill className="mx-auto text-4xl mb-4 opacity-50" />
-                <p>No coupons available</p>
-              </div>
-            )}
+            <CouponsCard />
           </motion.div>
 
           {/* Monthly Summary */}
