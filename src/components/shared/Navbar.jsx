@@ -17,6 +17,14 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Function to close mobile drawer
+  const closeMobileDrawer = () => {
+    const drawerToggle = document.getElementById('mobile-drawer');
+    if (drawerToggle) {
+      drawerToggle.checked = false;
+    }
+  };
+
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -96,9 +104,7 @@ const Navbar = () => {
                 : "text-white/80 hover:text-white hover:bg-white/10"
             }`
           }
-          onClick={() =>
-            (document.getElementById("mobile-drawer").checked = false)
-          }
+          onClick={closeMobileDrawer}
         >
           <HiHome className="h-5 w-5 mr-3" />
           Home
@@ -114,9 +120,7 @@ const Navbar = () => {
                 : "text-white/80 hover:text-white hover:bg-white/10"
             }`
           }
-          onClick={() =>
-            (document.getElementById("mobile-drawer").checked = false)
-          }
+          onClick={closeMobileDrawer}
         >
           <HiOfficeBuilding className="h-5 w-5 mr-3" />
           Apartments
@@ -134,9 +138,7 @@ const Navbar = () => {
                     : "text-white/80 hover:text-white hover:bg-white/10"
                 }`
               }
-              onClick={() =>
-                (document.getElementById("mobile-drawer").checked = false)
-              }
+              onClick={closeMobileDrawer}
             >
               <MdDashboard className="h-5 w-5 mr-3" />
               Dashboard
@@ -145,7 +147,7 @@ const Navbar = () => {
           <li>
             <button
               onClick={() => {
-                document.getElementById("mobile-drawer").checked = false;
+                closeMobileDrawer();
                 handleLogOut();
               }}
               className="w-full flex items-center px-4 py-3 rounded-xl font-medium text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all duration-300 mb-2"
@@ -218,15 +220,15 @@ const Navbar = () => {
                 <div className="flex items-center">
                   <label
                     htmlFor="mobile-drawer"
-                    className={`btn btn-ghost lg:hidden drawer-button mr-2 border-0 transition-all duration-300 ${
+                    className={`btn btn-ghost lg:hidden drawer-button mr-2 border-0 transition-all duration-300 min-h-[2.5rem] h-10 w-10 p-0 ${
                       isScrolled
                         ? "text-white hover:bg-white/10"
                         : "text-white hover:bg-white/10"
                     }`}
                   >
-                    <HiMenu className="h-5 w-5" />
+                    <HiMenu className="h-6 w-6" />
                   </label>
-                  <div className="text-white font-bold text-xl">
+                  <div className="hidden md:flex text-white font-bold text-xl">
                     <NivashLogo />
                   </div>
                 </div>
@@ -329,7 +331,7 @@ const Navbar = () => {
       {/* Drawer sidebar for mobile */}
       <div className="drawer-side z-50">
         <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
-        <div className="min-h-full w-80 bg-slate-900/95 backdrop-blur-xl border-r border-white/10 shadow-2xl">
+        <div className="min-h-full w-80 sm:w-80 bg-slate-900/95 backdrop-blur-xl border-r border-white/10 shadow-2xl">
           {/* Drawer header */}
           <div className="flex items-center justify-between p-6 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-white/10">
             <div className="text-white">
@@ -337,7 +339,7 @@ const Navbar = () => {
             </div>
             <label
               htmlFor="mobile-drawer"
-              className="btn btn-circle btn-ghost text-white hover:bg-white/10 border-0"
+              className="btn btn-circle btn-ghost text-white hover:bg-white/10 border-0 min-h-[2.5rem] h-10 w-10 p-0"
             >
               <HiX className="h-6 w-6" />
             </label>
@@ -376,9 +378,7 @@ const Navbar = () => {
               <NavLink
                 to="/login"
                 className="flex items-center justify-center w-full px-6 py-4 text-slate-900 font-semibold bg-white rounded-2xl hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-                onClick={() =>
-                  (document.getElementById("mobile-drawer").checked = false)
-                }
+                onClick={closeMobileDrawer}
               >
                 <HiUser className="h-5 w-5 mr-2" />
                 Early Access

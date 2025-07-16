@@ -16,12 +16,20 @@ import NivashLogo from "../components/shared/NivashLogo";
 import { NavLink, Outlet } from "react-router";
 import { IoHomeSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";//eslint-disable-line
 import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
   const { user, logOut } = useAuth();
   const { isAdmin, isMember } = useUserRole();
+
+  // Function to close mobile drawer
+  const closeMobileDrawer = () => {
+    const drawerToggle = document.getElementById('my-drawer-2');
+    if (drawerToggle) {
+      drawerToggle.checked = false;
+    }
+  };
 
   const navLinks = (
     <>
@@ -33,6 +41,7 @@ const DashboardLayout = () => {
         <NavLink
           to="/dashboard"
           end
+          onClick={closeMobileDrawer}
           className={({ isActive }) => `
                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
@@ -55,6 +64,7 @@ const DashboardLayout = () => {
         {isAdmin ? (
           <NavLink
             to="/dashboard/adminProfile"
+            onClick={closeMobileDrawer}
             className={({ isActive }) => `
                     flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
@@ -70,6 +80,7 @@ const DashboardLayout = () => {
         ) : (
           <NavLink
             to="/dashboard/myProfile"
+            onClick={closeMobileDrawer}
             className={({ isActive }) => `
                    flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
@@ -92,6 +103,7 @@ const DashboardLayout = () => {
       >
         <NavLink
           to="/dashboard/announcements"
+          onClick={closeMobileDrawer}
           className={({ isActive }) => `
                     flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
@@ -116,6 +128,7 @@ const DashboardLayout = () => {
       >
         <NavLink
           to="/dashboard/manageMembers"
+          onClick={closeMobileDrawer}
           className={({ isActive }) => `
                     flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
@@ -137,6 +150,7 @@ const DashboardLayout = () => {
       >
         <NavLink
           to="/dashboard/makeAnnouncement"
+          onClick={closeMobileDrawer}
           className={({ isActive }) => `
                     flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
@@ -158,6 +172,7 @@ const DashboardLayout = () => {
       >
         <NavLink
           to="/dashboard/agreementRequests"
+          onClick={closeMobileDrawer}
           className={({ isActive }) => `
                     flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
@@ -181,6 +196,7 @@ const DashboardLayout = () => {
       >
         <NavLink
           to="/dashboard/manageCoupons"
+          onClick={closeMobileDrawer}
           className={({ isActive }) => `
                     flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
@@ -205,6 +221,7 @@ const DashboardLayout = () => {
       >
         <NavLink
           to="/dashboard/payment"
+          onClick={closeMobileDrawer}
           className={({ isActive }) => `
                     flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
@@ -225,6 +242,7 @@ const DashboardLayout = () => {
       >
         <NavLink
           to="/dashboard/paymentHistory"
+          onClick={closeMobileDrawer}
           className={({ isActive }) => `
                     flex items-center space-x-3 px-4 py-2 rounded-lg transition-all duration-200 group
                   ${
