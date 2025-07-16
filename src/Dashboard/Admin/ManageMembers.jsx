@@ -1,15 +1,16 @@
 import React from "react";
 import { FaUsers, FaTrash } from "react-icons/fa";
-import { motion } from "framer-motion";//eslint-disable-line
+import { motion } from "framer-motion"; //eslint-disable-line
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import PageTitle from "../../components/shared/PageTitle";
 
+
 const ManageMembers = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
-
+ 
   // Fetch all users with member role
   const {
     data: members = [],
@@ -81,7 +82,7 @@ const ManageMembers = () => {
   });
 
   const handleRemoveMember = (userEmail, userName) => {
-   // console.log("handleRemoveMember called with:", { userEmail, userName });
+    // console.log("handleRemoveMember called with:", { userEmail, userName });
 
     Swal.fire({
       title: "Remove Member?",
@@ -194,16 +195,7 @@ const ManageMembers = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="flex-shrink-0 h-10 w-10">
-                            <img
-                              className="h-10 w-10 rounded-full object-cover"
-                              src={
-                                member.photo ||
-                                "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                              }
-                              alt={member.name}
-                            />
-                          </div>
+                        
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">
                               {member.name}

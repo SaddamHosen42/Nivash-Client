@@ -24,6 +24,7 @@ const Navbar = () => {
       drawerToggle.checked = false;
     }
   };
+console.log(user);
 
   // Handle scroll effect
   useEffect(() => {
