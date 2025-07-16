@@ -46,13 +46,13 @@ const Register = () => {
   const passwordValidations = validatePassword(password);
 
   const onSubmit = (data) => {
-    console.log(data);
+    //console.log(data);
     // Handle registration logic here
 
     createUser(data.email, data.password)
       .then(async (result) => {
         const user = result.user;
-        console.log(user);
+        //console.log(user);
         // update userinfo in the database here
         const userInfo = {
           name:data.name,

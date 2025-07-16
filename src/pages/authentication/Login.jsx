@@ -26,7 +26,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (data) => {
-    console.log(data);
+    //console.log(data);
     // Handle login logic here
     logIn(data.email, data.password)
       .then((result) => {
