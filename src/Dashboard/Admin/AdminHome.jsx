@@ -2,11 +2,12 @@ import React from 'react';
 import { FaHome, FaUsers, FaUserTie, FaCog, FaChartLine, FaBuilding, FaCalendarAlt, FaClipboardList } from 'react-icons/fa';
 import { MdDashboard, MdAnnouncement, MdRequestPage, MdPayment } from 'react-icons/md';
 import { RiCoupon3Fill } from 'react-icons/ri';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'; // eslint-disable-line
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+
 
 const AdminHome = () => {
   const { user } = useAuth();
@@ -242,14 +243,14 @@ const AdminHome = () => {
                   </div>
                 </div>
                 <div>
-                  <p className="text-gray-600 text-sm font-medium mb-1">{stat.title}</p>
-                  <p className={`text-2xl font-bold ${stat.textColor}`}>
+                  <div className="text-gray-600 text-sm font-medium mb-1">{stat.title}</div>
+                  <div className={`text-2xl font-bold ${stat.textColor}`}>
                     {isLoading ? (
                       <div className="animate-pulse bg-gray-200 h-8 w-16 rounded"></div>
                     ) : (
                       stat.value
                     )}
-                  </p>
+                  </div>
                 </div>
               </div>
             </motion.div>

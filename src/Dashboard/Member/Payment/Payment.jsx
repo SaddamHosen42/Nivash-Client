@@ -6,6 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import PaymentForm from "./PaymentForm";
 import { useNavigate } from "react-router";
+import PageTitle from "../../../components/shared/PageTitle";
 
 // CheckoutForm component for handling Stripe payment
 export const CheckoutForm = ({
@@ -442,6 +443,7 @@ const Payment = () => {
 
   return (
     <div className="p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
+      <PageTitle title="Payment" />
       <PaymentForm agreement={agreement} />
     </div>
   );

@@ -3,17 +3,33 @@ import useUserRole from '../hooks/useUserRole';
 import AdminHome from './Admin/AdminHome';
 import MemberHome from './Member/MemberHome';
 import UserHome from './UserHome';
+import PageTitle from '../components/shared/PageTitle';
 
 const DashboardHome = () => {
     const {isAdmin, isMember} = useUserRole();
     if (isAdmin) {
-        return <AdminHome />;
+        return (
+            <>
+                <PageTitle title="Admin Dashboard" />
+                <AdminHome />
+            </>
+        );
     }
     else if (isMember) {
-        return <MemberHome />;
+        return (
+            <>
+                <PageTitle title="Member Dashboard" />
+                <MemberHome />
+            </>
+        );
     }
     else{
-        return <UserHome />;
+        return (
+            <>
+                <PageTitle title="User Dashboard" />
+                <UserHome />
+            </>
+        );
     }
 };
 

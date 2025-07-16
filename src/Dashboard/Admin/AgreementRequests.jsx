@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import PageTitle from "../../components/shared/PageTitle";
 
 const AgreementRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -113,6 +114,7 @@ const AgreementRequests = () => {
 
   return (
     <div className="p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
+      <PageTitle title="Agreement Requests" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

@@ -1,5 +1,6 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";// eslint-disable-line
+import PageTitle from "../components/shared/PageTitle";
 import {
   FaUser,
   FaEnvelope,
@@ -48,6 +49,7 @@ const {isUser}=useUserRole();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 p-6">
+      <PageTitle title="My Profile" />
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div

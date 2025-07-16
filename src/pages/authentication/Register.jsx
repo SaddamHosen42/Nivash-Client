@@ -11,6 +11,7 @@ import Lottie from "lottie-react";
 import registerAnimation from "../../lottie-animation/Animation-register.json";
 import useAxios from "../../hooks/useAxios";
 import NivashLogo from "../../components/shared/NivashLogo";
+import PageTitle from "../../components/shared/PageTitle";
 
 const Register = () => {
   const {
@@ -136,6 +137,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12 px-4">
+       <PageTitle title="Register" />
        <NivashLogo className="mb-8" />
       <div className="max-w-6xl mx-auto">
        

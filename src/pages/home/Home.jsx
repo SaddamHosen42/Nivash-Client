@@ -3,6 +3,7 @@ import AboutBuilding from '../../components/home/AboutBuilding';
 import Banner from '../../components/home/Banner';
 import LocationMap from '../../components/home/LocationMap';
 import Coupons from '../../components/home/Coupons';
+import PageTitle from '../../components/shared/PageTitle';
 
 
 const Home = () => {
@@ -27,6 +28,7 @@ const Home = () => {
 
     return (
         <div className="min-h-screen">
+            <PageTitle title="Home" />
             <header>
                 <Banner/>
             </header>

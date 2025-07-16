@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion"; //eslint-disable-line
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import PageTitle from "../../components/shared/PageTitle";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -89,6 +90,7 @@ const PaymentHistory = () => {
       initial="hidden"
       animate="visible"
     >
+      <PageTitle title="Payment History" />
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <motion.div

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
+import PageTitle from '../components/shared/PageTitle';
 
 const ErrorPage = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+            <PageTitle title="Page Not Found" />
             <div className="max-w-2xl mx-auto text-center">
                 {/* 404 Number */}
                 <div className="mb-8 pt-30">

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { TfiAnnouncement } from 'react-icons/tfi';
 import { FaCalendarAlt, FaUser, FaFilter, FaBell } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';// eslint-disable-line
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../hooks/useAxiosSecure';
+import PageTitle from '../components/shared/PageTitle';
 
 const Announcements = () => {
   const [filterType, setFilterType] = useState('all');
@@ -50,6 +51,7 @@ const Announcements = () => {
 
   return (
     <div className="p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
+      <PageTitle title="Announcements" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // eslint-disable-line
 import {
   HiSearch,
   HiHome,
@@ -8,6 +8,7 @@ import {
   HiCurrencyDollar,
 } from "react-icons/hi";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import PageTitle from "../../components/shared/PageTitle";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router";
@@ -15,7 +16,7 @@ import { useNavigate, useLocation } from "react-router";
 const Apartment = () => {
   const axiosSecure = useAxiosSecure();
   const [page, setPage] = useState(1);
-  const { user, loading: authLoading } = useAuth();
+  const { user} = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const queryClient = useQueryClient();
@@ -162,6 +163,7 @@ const Apartment = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12">
+      <PageTitle title="Apartments" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:pt-20">
         {/* Header Section */}
         <motion.div

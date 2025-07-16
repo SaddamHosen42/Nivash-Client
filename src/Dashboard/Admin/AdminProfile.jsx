@@ -1,4 +1,5 @@
 import React from "react";
+import PageTitle from "../../components/shared/PageTitle";
 import {
   FaUser,
   FaHome,
@@ -96,6 +97,7 @@ const AdminProfile = () => {
 
   return (
     <div className="p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
+     <PageTitle title="Admin Profile" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -197,16 +199,16 @@ const AdminProfile = () => {
                   </div>
                 </div>
                 <div>
-                  <p className="text-gray-600 text-sm font-medium mb-1">
+                  <div className="text-gray-600 text-sm font-medium mb-1">
                     {stat.title}
-                  </p>
-                  <p className={`text-2xl font-bold ${stat.textColor}`}>
+                  </div>
+                  <div className={`text-2xl font-bold ${stat.textColor}`}>
                     {isLoading ? (
                       <div className="animate-pulse bg-gray-200 h-8 w-16 rounded"></div>
                     ) : (
                       stat.value
                     )}
-                  </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
