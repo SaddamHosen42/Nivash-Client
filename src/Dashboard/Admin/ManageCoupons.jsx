@@ -178,7 +178,7 @@ const ManageCoupons = () => {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
+    <div className="p-3 sm:p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
       <PageTitle title="Manage Coupons" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -187,46 +187,47 @@ const ManageCoupons = () => {
         className="max-w-6xl mx-auto"
       >
         {/* Header */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-          <div className="flex items-center justify-between">
+        <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8 mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center">
-                <RiCoupon3Fill className="text-white text-2xl" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center">
+                <RiCoupon3Fill className="text-white text-xl sm:text-2xl" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   Manage Coupons
                 </h1>
-                <p className="text-gray-600 mt-2">
+                <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">
                   Create and manage discount coupons for building residents
                 </p>
               </div>
             </div>
             <button
               onClick={() => setShowModal(true)}
-              className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto"
             >
               <FaPlus className="text-sm" />
-              <span>Add New Coupon</span>
+              <span className="hidden sm:inline">Add New Coupon</span>
+              <span className="sm:hidden">Add Coupon</span>
             </button>
           </div>
         </div>
 
         {/* Add Coupon Modal */}
         {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
-              className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-4"
+              className="bg-white rounded-2xl shadow-xl p-4 sm:p-8 max-w-md w-full mx-4"
             >
-              <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 sm:mb-6">
                 Create New Coupon
               </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                 <div>
                   <label
                     htmlFor="couponCode"
@@ -241,7 +242,7 @@ const ManageCoupons = () => {
                     onChange={(e) =>
                       setCouponCode(e.target.value.toUpperCase())
                     }
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                     placeholder="e.g., SAVE20"
                     required
                   />
@@ -260,13 +261,13 @@ const ManageCoupons = () => {
                       id="discount"
                       value={discount}
                       onChange={(e) => setDiscount(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 pr-12"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 pr-10 sm:pr-12 text-sm sm:text-base"
                       placeholder="10"
                       min="1"
                       max="100"
                       required
                     />
-                    <FaPercentage className="absolute right-4 top-3.5 text-gray-400" />
+                    <FaPercentage className="absolute right-3 sm:right-4 top-2.5 sm:top-3.5 text-gray-400 text-sm" />
                   </div>
                 </div>
 
@@ -282,27 +283,27 @@ const ManageCoupons = () => {
                     rows={3}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base resize-none"
                     placeholder="Describe when and how this coupon can be used..."
                     required
                   />
                 </div>
 
-                <div className="flex justify-end space-x-4 pt-4">
+                <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4 pt-4">
                   <button
                     type="button"
                     onClick={() => {
                       setShowModal(false);
                       resetForm();
                     }}
-                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200"
+                    className="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200 text-sm sm:text-base"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={addCouponMutation.isPending}
-                    className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all duration-200 flex items-center space-x-2 disabled:opacity-50"
+                    className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 text-sm sm:text-base"
                   >
                     <RiCoupon3Fill className="text-sm" />
                     <span>
@@ -319,74 +320,145 @@ const ManageCoupons = () => {
 
         {/* Coupons Table */}
         <div className="bg-white rounded-2xl shadow-xl">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-800">All Coupons</h2>
+          <div className="p-4 sm:p-6 border-b border-gray-200">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-800">All Coupons</h2>
           </div>
 
-          <div className="overflow-x-auto">
+          <div>
             {isLoading ? (
-              <div className="flex justify-center items-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+              <div className="flex justify-center items-center py-8 sm:py-12">
+                <div className="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-purple-600"></div>
               </div>
             ) : coupons.length === 0 ? (
-              <div className="text-center py-12">
-                <RiCoupon3Fill className="mx-auto text-gray-400 text-6xl mb-4" />
-                <p className="text-gray-500 text-lg">No coupons found</p>
-                <p className="text-gray-400">
+              <div className="text-center py-8 sm:py-12">
+                <RiCoupon3Fill className="mx-auto text-gray-400 text-4xl sm:text-6xl mb-4" />
+                <p className="text-gray-500 text-base sm:text-lg">No coupons found</p>
+                <p className="text-gray-400 text-sm sm:text-base">
                   Click the "Add New Coupon" button to create your first coupon
                 </p>
               </div>
             ) : (
-              <table className="min-w-full">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Coupon Code
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Discount
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Description
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Created Date
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+              <>
+                {/* Desktop Table View */}
+                <div className="hidden md:block overflow-x-auto">
+                  <table className="min-w-full">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Coupon Code
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Discount
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Description
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Status
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Created Date
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {coupons.map((coupon) => (
+                        <tr key={coupon._id} className="hover:bg-gray-50">
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center">
+                              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
+                                <RiCoupon3Fill className="text-white text-lg" />
+                              </div>
+                              <div className="text-sm font-medium text-gray-900">
+                                {coupon.code}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center">
+                              <FaPercentage className="text-purple-500 mr-1" />
+                              <span className="text-lg font-bold text-purple-600">
+                                {coupon.discount}%
+                              </span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="text-sm text-gray-900 max-w-xs truncate">
+                              {coupon.description}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span
+                              className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                                coupon.isAvailable
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-red-100 text-red-800"
+                              }`}
+                            >
+                              {coupon.isAvailable ? "Active" : "Inactive"}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {new Date(coupon.createdAt).toLocaleDateString()}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <div className="flex space-x-2">
+                              <button
+                                onClick={() => handleToggleAvailability(coupon)}
+                                className={`p-2 rounded-lg transition-all duration-200 ${
+                                  coupon.isAvailable
+                                    ? "text-red-600 hover:text-red-900 hover:bg-red-50"
+                                    : "text-green-600 hover:text-green-900 hover:bg-green-50"
+                                }`}
+                                title={
+                                  coupon.isAvailable
+                                    ? "Disable coupon"
+                                    : "Enable coupon"
+                                }
+                              >
+                                {coupon.isAvailable ? (
+                                  <FaToggleOn className="text-xl" />
+                                ) : (
+                                  <FaToggleOff className="text-xl" />
+                                )}
+                              </button>
+                              <button
+                                onClick={() => handleDeleteCoupon(coupon._id)}
+                                className="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50 transition-all duration-200"
+                                title="Delete coupon"
+                              >
+                                <FaTrash />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="md:hidden p-4 space-y-4">
                   {coupons.map((coupon) => (
-                    <tr key={coupon._id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
+                    <div key={coupon._id} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                      <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center">
                           <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center mr-3">
                             <RiCoupon3Fill className="text-white text-lg" />
                           </div>
-                          <div className="text-sm font-medium text-gray-900">
-                            {coupon.code}
+                          <div>
+                            <div className="text-lg font-bold text-gray-900">{coupon.code}</div>
+                            <div className="flex items-center mt-1">
+                              <FaPercentage className="text-purple-500 mr-1 text-sm" />
+                              <span className="text-lg font-bold text-purple-600">
+                                {coupon.discount}%
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <FaPercentage className="text-purple-500 mr-1" />
-                          <span className="text-lg font-bold text-purple-600">
-                            {coupon.discount}%
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900 max-w-xs truncate">
-                          {coupon.description}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                             coupon.isAvailable
@@ -396,11 +468,18 @@ const ManageCoupons = () => {
                         >
                           {coupon.isAvailable ? "Active" : "Inactive"}
                         </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(coupon.createdAt).toLocaleDateString()}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      </div>
+                      
+                      <div className="mb-3">
+                        <p className="text-sm text-gray-600 leading-relaxed">
+                          {coupon.description}
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="text-xs text-gray-500">
+                          Created: {new Date(coupon.createdAt).toLocaleDateString()}
+                        </div>
                         <div className="flex space-x-2">
                           <button
                             onClick={() => handleToggleAvailability(coupon)}
@@ -429,11 +508,11 @@ const ManageCoupons = () => {
                             <FaTrash />
                           </button>
                         </div>
-                      </td>
-                    </tr>
+                      </div>
+                    </div>
                   ))}
-                </tbody>
-              </table>
+                </div>
+              </>
             )}
           </div>
         </div>

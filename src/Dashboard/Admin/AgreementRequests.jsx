@@ -1,7 +1,6 @@
 import React from "react";
 import { MdRequestPage, MdCheck, MdClose } from "react-icons/md";
-import { FaEye, FaCalendarAlt, FaHome } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";//eslint-disable-line
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";

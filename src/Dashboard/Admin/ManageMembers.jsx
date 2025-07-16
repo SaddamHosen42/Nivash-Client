@@ -1,6 +1,6 @@
 import React from "react";
 import { FaUsers, FaTrash } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";//eslint-disable-line
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
