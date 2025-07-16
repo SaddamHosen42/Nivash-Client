@@ -59,7 +59,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 py-12 px-4">
       <PageTitle title="Login" />
-      <NivashLogo className="mb-8" />
+      <NivashLogo className="mb-10" />
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Animation & Welcome */}
