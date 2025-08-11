@@ -1,7 +1,7 @@
 # 🏢 Nivash - Building Management System
 
 <div align="center">
-  <img src="./Nivash.png" alt="Nivash Preview" />
+  <img src="[./Nivash.png](https://i.ibb.co.com/bRWPc4s7/Nivash.png)" alt="Nivash Preview" />
 </div>
 
 <div align="center">
