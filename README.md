@@ -1,7 +1,7 @@
 # 🏢 Nivash - Building Management System
 
 <div align="center">
-  <img src="https://i.ibb.co.com/bRWPc4s7/Nivash.png" alt="Nivash Preview image" />
+  <img src="https://i.ibb.co/bRWPc4s7/Nivash.png" alt="Nivash Preview image" />
 </div>
 
 <div align="center">
@@ -15,6 +15,7 @@
   <h3>🌟 A Modern Building Management Platform for Seamless Community Living</h3>
   <p>Streamline your building operations with advanced features for residents, management, and owners</p>
 </div>
+
 
 ---
 
