@@ -161,7 +161,6 @@ export const CheckoutForm = ({
             allowOutsideClick: false,
           });
 
-
           //redirect to member dashboard
           navigate("/dashboard");
         }
@@ -219,14 +218,14 @@ export const CheckoutForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
       {/* Card Information Section */}
-      <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+      <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
         <div className="flex items-center mb-3">
-          <span className="w-6 h-6 bg-blue-100 rounded-lg flex items-center justify-center mr-2">
+          <span className="w-5 h-5 sm:w-6 sm:h-6 bg-blue-100 rounded-lg flex items-center justify-center mr-2 text-sm sm:text-base">
             💳
           </span>
-          <label className="text-lg font-semibold text-gray-800">
+          <label className="text-base sm:text-lg font-semibold text-gray-800">
             Card Information
           </label>
         </div>
@@ -236,7 +235,7 @@ export const CheckoutForm = ({
             options={{
               style: {
                 base: {
-                  fontSize: "16px",
+                  fontSize: "14px",
                   color: "#374151",
                   fontFamily:
                     'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
@@ -263,7 +262,7 @@ export const CheckoutForm = ({
           />
         </div>
 
-        <div className="flex items-center mt-2 text-sm text-gray-600">
+        <div className="flex items-center mt-2 text-xs sm:text-sm text-gray-600">
           <span className="mr-2">🔒</span>
           <span>Your payment information is encrypted and secure</span>
         </div>
@@ -275,7 +274,7 @@ export const CheckoutForm = ({
           type="submit"
           disabled={!stripe || isProcessing || !month || !cardComplete}
           className={`
-            w-full py-3 px-6 rounded-lg font-bold text-lg transition-all duration-200
+            w-full py-3 sm:py-4 px-4 sm:px-6 rounded-lg font-bold text-base sm:text-lg transition-all duration-200
             ${
               isProcessing
                 ? "bg-yellow-500 text-white"
@@ -289,16 +288,18 @@ export const CheckoutForm = ({
           `}
         >
           {isProcessing ? (
-            <div className="flex items-center justify-center space-x-3">
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              <span>Processing Payment...</span>
+            <div className="flex items-center justify-center space-x-2 sm:space-x-3">
+              <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <span className="text-sm sm:text-base">
+                Processing Payment...
+              </span>
             </div>
           ) : (
-            <div className="flex items-center justify-center space-x-3">
-              <span className="text-xl">💳</span>
+            <div className="flex items-center justify-center space-x-2 sm:space-x-3">
+              <span className="text-lg sm:text-xl">💳</span>
               <div className="text-center">
-                <div className="font-bold">Pay Now</div>
-                <div className="text-sm opacity-90">
+                <div className="font-bold text-sm sm:text-base">Pay Now</div>
+                <div className="text-xs sm:text-sm opacity-90">
                   ৳{finalRent.toLocaleString()}
                 </div>
               </div>
@@ -308,7 +309,7 @@ export const CheckoutForm = ({
 
         {(!stripe || !month || !cardComplete) && (
           <div className="text-center py-2">
-            <p className="text-sm text-gray-500">
+            <p className="text-xs sm:text-sm text-gray-500">
               {!month
                 ? "⬆️ Please select a month first"
                 : !cardComplete
@@ -320,31 +321,31 @@ export const CheckoutForm = ({
       </div>
 
       {/* Security Notice */}
-      <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-        <div className="flex items-start space-x-3">
-          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="text-white text-sm">🛡️</span>
+      <div className="bg-blue-50 rounded-lg p-3 sm:p-4 border border-blue-200">
+        <div className="flex items-start space-x-2 sm:space-x-3">
+          <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+            <span className="text-white text-xs sm:text-sm">🛡️</span>
           </div>
-          <div>
-            <h4 className="font-semibold text-gray-800 mb-2">
+          <div className="min-w-0 flex-1">
+            <h4 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">
               Secure Payment Guarantee
             </h4>
-            <ul className="text-sm text-gray-600 space-y-1">
+            <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
               <li className="flex items-center">
-                <span className="text-green-500 mr-2">✓</span>
-                256-bit SSL encryption
+                <span className="text-green-500 mr-1 sm:mr-2 text-xs">✓</span>
+                <span>256-bit SSL encryption</span>
               </li>
               <li className="flex items-center">
-                <span className="text-green-500 mr-2">✓</span>
-                PCI DSS compliant
+                <span className="text-green-500 mr-1 sm:mr-2 text-xs">✓</span>
+                <span>PCI DSS compliant</span>
               </li>
               <li className="flex items-center">
-                <span className="text-green-500 mr-2">✓</span>
-                Stripe secure processing
+                <span className="text-green-500 mr-1 sm:mr-2 text-xs">✓</span>
+                <span>Stripe secure processing</span>
               </li>
               <li className="flex items-center">
-                <span className="text-green-500 mr-2">✓</span>
-                No card details stored
+                <span className="text-green-500 mr-1 sm:mr-2 text-xs">✓</span>
+                <span>No card details stored</span>
               </li>
             </ul>
           </div>
@@ -380,16 +381,16 @@ const Payment = () => {
 
   if (isLoading) {
     return (
-      <div className="p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+      <div className="p-3 sm:p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-6 sm:p-12 text-center">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <div className="w-4 h-4 sm:w-6 sm:h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">
               Loading Payment Portal
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 px-4">
               Fetching your agreement details...
             </p>
             <div className="flex justify-center space-x-2">
@@ -411,27 +412,27 @@ const Payment = () => {
 
   if (error || !agreement) {
     return (
-      <div className="p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
-            <div className="w-20 h-20 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <span className="text-3xl text-red-600">⚠️</span>
+      <div className="p-3 sm:p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-6 sm:p-12 text-center">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-100 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <span className="text-2xl sm:text-3xl text-red-600">⚠️</span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3 sm:mb-4">
               No Active Agreement Found
             </h1>
-            <p className="text-gray-600 mb-8 leading-relaxed max-w-md mx-auto">
+            <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-relaxed max-w-md mx-auto px-4">
               You need to have an active apartment agreement to make payments.
               Please contact the administration or create an agreement first.
             </p>
             <div className="space-y-4">
               <button
                 onClick={() => window.history.back()}
-                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-3 px-8 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200"
+                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-8 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 text-sm sm:text-base"
               >
                 Go Back
               </button>
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-gray-500 px-4">
                 Need help? Contact support at support@buildingmanagement.com
               </p>
             </div>
@@ -442,7 +443,7 @@ const Payment = () => {
   }
 
   return (
-    <div className="p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
+    <div className="p-3 sm:p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 min-h-screen">
       <PageTitle title="Payment" />
       <PaymentForm agreement={agreement} />
     </div>

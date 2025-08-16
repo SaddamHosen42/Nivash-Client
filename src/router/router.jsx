@@ -21,6 +21,7 @@ import AdminRoute from "../routes/AdminRoute";
 import MemberRoute from "../routes/MemberRoute";
 import Payment from "../Dashboard/Member/Payment/Payment";
 import ErrorPage from "../pages/ErrorPage";
+import About from "../pages/About/About";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "apartment",
         element: <Apartment />,
+      },
+      {
+        path: "about",
+        element: <About />,
       },
       {
         path: "forbidden",
