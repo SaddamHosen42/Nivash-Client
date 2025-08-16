@@ -10,6 +10,7 @@ import {
   HiMenu,
   HiX,
   HiUser,
+  HiInformationCircle,
 } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 
@@ -141,6 +142,22 @@ console.log(user);
         >
           <HiOfficeBuilding className="h-5 w-5 mr-3" />
           Apartments
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            `flex items-center px-4 py-3 rounded-xl font-medium transition-all duration-300 mb-2 ${
+              isActive
+                ? "text-slate-900 bg-white shadow-lg"
+                : "text-white/80 hover:text-white hover:bg-white/10"
+            }`
+          }
+          onClick={closeMobileDrawer}
+        >
+          <HiInformationCircle className="h-5 w-5 mr-3" />
+          About
         </NavLink>
       </li>
       {user && (
