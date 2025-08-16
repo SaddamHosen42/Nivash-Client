@@ -42,7 +42,7 @@ const Apartment = () => {
         );
         return res.data;
       } catch (error) {
-        // Handle error gracefully if user is not authenticated
+        // Handle error if user is not authenticated
         if (error.response?.status === 401) {
           return { apartments: [], total: 0 };
         }
@@ -114,7 +114,7 @@ const Apartment = () => {
       return;
     }
 
-    // Handle agreement logic here
+    // Handle agreement logic 
     const agreementData = {
       userName: user.displayName,
       userEmail: user.email,
@@ -167,18 +167,111 @@ const Apartment = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:pt-20">
         {/* Header Section */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.8 }}
+          className="relative text-center mb-16 overflow-hidden"
         >
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            Find Your Perfect Home
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover luxury apartments with modern amenities and breathtaking
-            views
-          </p>
+          {/* Background decorations */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-blue-600/5 rounded-3xl"></div>
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"></div>
+          
+          <div className="relative z-10 py-12 px-6">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-6"
+            >
+              <span className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg mb-4">
+                🏠 Premium Living Spaces
+              </span>
+            </motion.div>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-6 leading-tight"
+            >
+              Find Your Perfect
+              <br />
+              <span className="relative">
+                Dream Home
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full origin-left"
+                ></motion.div>
+              </span>
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8"
+            >
+              Discover luxury apartments with modern amenities, stunning views, and premium locations. 
+              Your perfect home awaits in our carefully curated collection of premium residential spaces.
+            </motion.p>
+
+            {/* Stats Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto"
+            >
+              {[
+                { number: "200+", label: "Apartments", icon: "🏢" },
+                { number: "50+", label: "Buildings", icon: "🏗️" },
+                { number: "1000+", label: "Happy Residents", icon: "😊" },
+                { number: "24/7", label: "Support", icon: "🛟" }
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                >
+                  <div className="text-2xl mb-2">{stat.icon}</div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">{stat.number}</h3>
+                  <p className="text-sm text-gray-600 font-medium">{stat.label}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Feature highlights */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="flex flex-wrap justify-center gap-4 mt-8"
+            >
+              {[
+                "🌟 Premium Amenities",
+                "🔒 24/7 Security", 
+                "🚗 Parking Available",
+                "💡 Smart Features",
+                "🏊‍♂️ Recreation Facilities"
+              ].map((feature, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                  className="bg-gradient-to-r from-blue-50 to-purple-50 text-gray-700 px-4 py-2 rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-blue-100"
+                >
+                  {feature}
+                </motion.span>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
 
         {/* Search Section */}
