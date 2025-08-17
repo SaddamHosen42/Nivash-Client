@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";// eslint-disable-line
+import { motion } from "framer-motion"; // eslint-disable-line
 import PageTitle from "../components/shared/PageTitle";
 import {
   FaUser,
@@ -25,16 +25,16 @@ const MyProfile = () => {
   const { user, updateUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { isUser } = useUserRole();
-  
+
   // Modal state
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
-  
+
   // Form state
   const [formData, setFormData] = useState({
     displayName: user?.displayName || "",
-    photoURL: user?.photoURL || "", // Still need to track for updates
+    photoURL: user?.photoURL || "",
   });
 
   // Handle form submission
@@ -54,9 +54,9 @@ const MyProfile = () => {
 
       // Update profile using Firebase updateProfile
       await updateUser(updateData);
-      
+
       setIsEditModalOpen(false);
-      
+
       Swal.fire({
         title: "Success!",
         text: "Profile updated successfully!",
@@ -84,9 +84,9 @@ const MyProfile = () => {
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -115,11 +115,11 @@ const MyProfile = () => {
       }`;
       const res = await axios.post(imageUploadUrl, formDataImage);
 
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        photoURL: res.data.data.url
+        photoURL: res.data.data.url,
       }));
-      
+
       Swal.fire({
         title: "Success!",
         text: "Image uploaded successfully!",
@@ -138,7 +138,6 @@ const MyProfile = () => {
       setImageUploading(false);
     }
   };
-
 
   // Fetch user's agreements
   const { data: agreements = [], isLoading } = useQuery({
@@ -167,7 +166,7 @@ const MyProfile = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 p-6">
       <PageTitle title="My Profile" />
-      <div className="max-w-6xl mx-auto">
+      <div className={`max-w-6xl mx-auto transition-all duration-300 ${isEditModalOpen ? 'blur-sm' : ''}`}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -332,11 +331,15 @@ const MyProfile = () => {
                           Agreement Request Date
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          {isUser ? 'None' : new Date(userAgreement?.requestDate).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}
+                          {isUser
+                            ? "None"
+                            : new Date(
+                                userAgreement?.requestDate
+                              ).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })}
                         </p>
                       </div>
                     </motion.div>
@@ -356,14 +359,19 @@ const MyProfile = () => {
                           Agreement Accept Date
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          {isUser ? 'None' : userAgreement?.acceptDate ? 
-                            new Date(userAgreement.acceptDate).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            }) : 
-                            userAgreement?.status === 'pending' ? 'Pending approval' : 'Not available'
-                          }
+                          {isUser
+                            ? "None"
+                            : userAgreement?.acceptDate
+                            ? new Date(
+                                userAgreement.acceptDate
+                              ).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })
+                            : userAgreement?.status === "pending"
+                            ? "Pending approval"
+                            : "Not available"}
                         </p>
                       </div>
                     </motion.div>
@@ -383,7 +391,7 @@ const MyProfile = () => {
                           Floor
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          {isUser ? 'None' : `${userAgreement?.floor}th Floor`}
+                          {isUser ? "None" : `${userAgreement?.floor}th Floor`}
                         </p>
                       </div>
                     </motion.div>
@@ -403,7 +411,7 @@ const MyProfile = () => {
                           Block
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          {isUser ? 'None' : `Block ${userAgreement?.block}`}
+                          {isUser ? "None" : `Block ${userAgreement?.block}`}
                         </p>
                       </div>
                     </motion.div>
@@ -423,7 +431,7 @@ const MyProfile = () => {
                           Apartment No
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          {isUser ? 'None' : userAgreement?.apartmentNo}
+                          {isUser ? "None" : userAgreement?.apartmentNo}
                         </p>
                       </div>
                     </motion.div>
@@ -443,7 +451,9 @@ const MyProfile = () => {
                           Monthly Rent
                         </p>
                         <p className="text-lg font-semibold text-gray-900">
-                          {isUser ? 'None' : `৳${userAgreement?.rent?.toLocaleString()}`}
+                          {isUser
+                            ? "None"
+                            : `৳${userAgreement?.rent?.toLocaleString()}`}
                         </p>
                       </div>
                     </motion.div>
@@ -507,138 +517,143 @@ const MyProfile = () => {
 
       {/* Edit Profile Modal */}
       {isEditModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-3 sm:p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
-          >
-            {/* Modal Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white rounded-t-2xl">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Edit Profile</h2>
-                <button
-                  onClick={() => setIsEditModalOpen(false)}
-                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                >
-                  <FaTimes className="text-xl" />
-                </button>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 50 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 50 }}
+          className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[80vh] overflow-y-auto border border-gray-200"
+          style={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
+        >
+          {/* Modal Header */}
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white rounded-t-2xl">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">Edit Profile</h2>
+              <button
+                onClick={() => setIsEditModalOpen(false)}
+                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+              >
+                <FaTimes className="text-xl" />
+              </button>
+            </div>
+            <p className="text-blue-100 mt-2">
+              Update your personal information
+            </p>
+          </div>
+
+          {/* Modal Body */}
+          <form onSubmit={handleUpdateProfile} className="p-4 sm:p-6 space-y-6">
+            {/* Profile Photo Preview */}
+            <div className="text-center">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center overflow-hidden border-4 border-gray-200 shadow-lg mb-4">
+                {imageUploading ? (
+                  <div className="flex flex-col items-center">
+                    <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin mb-1"></div>
+                    <span className="text-xs text-white">Uploading...</span>
+                  </div>
+                ) : (
+                  <img
+                    alt="Profile Preview"
+                    src={
+                      formData.photoURL ||
+                      user?.photoURL ||
+                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    }
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                )}
               </div>
-              <p className="text-blue-100 mt-2">Update your personal information</p>
+              <p className="text-sm text-gray-500">Profile Picture Preview</p>
             </div>
 
-            {/* Modal Body */}
-            <form onSubmit={handleUpdateProfile} className="p-4 sm:p-6 space-y-6">
-              {/* Profile Photo Preview */}
-              <div className="text-center">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center overflow-hidden border-4 border-gray-200 shadow-lg mb-4">
-                  {imageUploading ? (
-                    <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin mb-1"></div>
-                      <span className="text-xs text-white">Uploading...</span>
-                    </div>
-                  ) : (
-                    <img
-                      alt="Profile Preview"
-                      src={formData.photoURL || user?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  )}
-                </div>
-                <p className="text-sm text-gray-500">Profile Picture Preview</p>
-              </div>
+            {/* Display Name Input */}
+            <div className="space-y-2">
+              <label className="flex items-center text-sm font-semibold text-gray-700">
+                <FaUser className="mr-2 text-blue-600" />
+                Full Name
+              </label>
+              <input
+                type="text"
+                name="displayName"
+                value={formData.displayName}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
 
-              {/* Display Name Input */}
-              <div className="space-y-2">
-                <label className="flex items-center text-sm font-semibold text-gray-700">
-                  <FaUser className="mr-2 text-blue-600" />
-                  Full Name
-                </label>
+            {/* Photo Upload Input */}
+            <div className="space-y-2">
+              <label className="flex items-center text-sm font-semibold text-gray-700">
+                <FaUpload className="mr-2 text-blue-600" />
+                Profile Photo
+              </label>
+              <div className="relative">
                 <input
-                  type="text"
-                  name="displayName"
-                  value={formData.displayName}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                  placeholder="Enter your full name"
-                  required
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={imageUploading}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
+                {imageUploading && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                )}
               </div>
+              <p className="text-xs text-gray-500">
+                Choose an image file from your device (JPG, PNG, GIF supported)
+              </p>
+            </div>
 
-              {/* Photo Upload Input */}
-              <div className="space-y-2">
-                <label className="flex items-center text-sm font-semibold text-gray-700">
-                  <FaUpload className="mr-2 text-blue-600" />
-                  Profile Photo
-                </label>
-                <div className="relative">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    disabled={imageUploading}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                  />
-                  {imageUploading && (
-                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                      <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                    </div>
-                  )}
-                </div>
-                <p className="text-xs text-gray-500">
-                  Choose an image file from your device (JPG, PNG, GIF supported)
-                </p>
-              </div>
+            {/* Email (Read-only) */}
+            <div className="space-y-2">
+              <label className="flex items-center text-sm font-semibold text-gray-700">
+                <FaEnvelope className="mr-2 text-gray-400" />
+                Email Address
+              </label>
+              <input
+                type="email"
+                value={user?.email || ""}
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-500 cursor-not-allowed"
+                placeholder="Email cannot be changed"
+                readOnly
+              />
+              <p className="text-xs text-gray-500">
+                Email address cannot be modified
+              </p>
+            </div>
 
-              {/* Email (Read-only) */}
-              <div className="space-y-2">
-                <label className="flex items-center text-sm font-semibold text-gray-700">
-                  <FaEnvelope className="mr-2 text-gray-400" />
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  value={user?.email || ""}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-500 cursor-not-allowed"
-                  placeholder="Email cannot be changed"
-                  readOnly
-                />
-                <p className="text-xs text-gray-500">
-                  Email address cannot be modified
-                </p>
-              </div>
-
-              {/* Modal Footer */}
-              <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
-                <button
-                  type="button"
-                  onClick={() => setIsEditModalOpen(false)}
-                  className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-200"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={isUpdating}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
-                >
-                  {isUpdating ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Updating...</span>
-                    </>
-                  ) : (
-                    <>
-                      <FaEdit className="text-sm" />
-                      <span>Update Profile</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        </div>
+            {/* Modal Footer */}
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
+              <button
+                type="button"
+                onClick={() => setIsEditModalOpen(false)}
+                className="w-full px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-200"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isUpdating}
+                className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              >
+                {isUpdating ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Updating...</span>
+                  </>
+                ) : (
+                  <>
+                    <FaEdit className="text-sm" />
+                    <span>Update Profile</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </motion.div>
       )}
     </div>
   );
