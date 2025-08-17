@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";//eslint-disable-line
 import { Link } from "react-router";
 
 const Slider3 = () => {
@@ -103,15 +103,53 @@ const Slider3 = () => {
               }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Link >
-                <button className="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25">
-                  <span className="relative z-10">Start Your Journey</span>
+              <Link to="/#location">
+                <button 
+                  onClick={() => {
+                    // Handle both same-page and cross-page navigation
+                    const currentPath = window.location.pathname;
+                    if (currentPath === '/') {
+                      // If already on home page, scroll directly
+                      setTimeout(() => {
+                        const locationSection = document.getElementById('location');
+                        if (locationSection) {
+                          locationSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                          });
+                        }
+                      }, 100);
+                    }
+                 
+                  }}
+                  className="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25"
+                >
+                  <span className="relative z-10">Get Directions</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                 </button>
               </Link>
-              <Link >
-                <button className="px-8 py-4 border-2 border-emerald-400 text-emerald-400 font-semibold rounded-xl hover:bg-emerald-400 hover:text-emerald-900 transition-all duration-300">
-                  Virtual Tour
+              <Link to="/#contact">
+                <button 
+                  onClick={() => {
+                    // Handle both same-page and cross-page navigation
+                    const currentPath = window.location.pathname;
+                    if (currentPath === '/') {
+                      // If already on home page, scroll directly
+                      setTimeout(() => {
+                        const contactSection = document.getElementById('contact');
+                        if (contactSection) {
+                          contactSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                          });
+                        }
+                      }, 100);
+                    }
+                   
+                  }}
+                  className="px-8 py-4 border-2 border-emerald-400 text-emerald-400 font-semibold rounded-xl hover:bg-emerald-400 hover:text-emerald-900 transition-all duration-300"
+                >
+                  Contact Us
                 </button>
               </Link>
             </motion.div>
