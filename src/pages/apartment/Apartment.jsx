@@ -162,27 +162,29 @@ const Apartment = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <PageTitle title="Apartments" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:pt-20">
-        {/* Header Section */}
+      
+      {/* Header Section - Full Width Background */}
+      <div className="w-full">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative text-center mb-16 overflow-hidden"
+          className="relative overflow-hidden pt-16 pb-12"
         >
           {/* Background decorations */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-blue-600/5 rounded-3xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-blue-600/5"></div>
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"></div>
           
-          <div className="relative z-10 py-12 px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative z-10 text-center py-12">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-6"
+              className="mb-6 mt-5"
             >
               <span className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg mb-4">
                 🏠 Premium Living Spaces
@@ -197,7 +199,7 @@ const Apartment = () => {
             >
               Find Your Perfect
               <br />
-              <span className="relative">
+              <span className="relative text-black">
                 Dream Home
                 <motion.div
                   initial={{ scaleX: 0 }}
@@ -271,9 +273,13 @@ const Apartment = () => {
                 </motion.span>
               ))}
             </motion.div>
+            </div>
           </div>
         </motion.div>
+      </div>
 
+      {/* Main Content Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Search Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
