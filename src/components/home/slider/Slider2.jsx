@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";//eslint-disable-line
 import { Link } from "react-router";
 
 const Slider2 = () => {
@@ -54,14 +54,33 @@ const Slider2 = () => {
             }}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
           >
-            <Link >
+            <Link to="/apartment">
               <button className="btn bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 border-none text-white px-10 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
                 View Apartments
               </button>
             </Link>
-            <Link>
-              <button className="btn btn-outline border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-gray-900 px-10 py-4 text-lg font-semibold transition-all duration-300">
-                Schedule Visit
+            <Link to="/#coupons">
+              <button 
+                onClick={() => {
+                  // Handle both same-page and cross-page navigation
+                  const currentPath = window.location.pathname;
+                  if (currentPath === '/') {
+                    // If already on home page, scroll directly
+                    setTimeout(() => {
+                      const couponSection = document.getElementById('coupons');
+                      if (couponSection) {
+                        couponSection.scrollIntoView({ 
+                          behavior: 'smooth',
+                          block: 'start'
+                        });
+                      }
+                    }, 100);
+                  }
+                 
+                }}
+                className="btn btn-outline border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-gray-900 px-10 py-4 text-lg font-semibold transition-all duration-300"
+              >
+                 Visit Coupon
               </button>
             </Link>
           </motion.div>

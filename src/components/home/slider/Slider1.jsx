@@ -103,10 +103,10 @@ const Slider1 = () => {
               }}
               className="flex flex-col lg:flex-row gap-6 justify-center items-center"
             >
-              <Link >
+              <Link to="/apartment">
                 <button className="group relative px-12 py-5 bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-lg font-bold rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/30 transform hover:scale-105">
                   <span className="relative z-10 flex items-center">
-                    <span>Get Started</span>
+                    <span>View Apartments</span>
                     <svg
                       className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform"
                       fill="none"
@@ -124,9 +124,9 @@ const Slider1 = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                 </button>
               </Link>
-              <Link >
+              <Link to="/about">
                 <button className="px-12 py-5 border-3 border-slate-300 text-slate-300 text-lg font-bold rounded-2xl hover:bg-slate-300 hover:text-slate-900 transition-all duration-500 backdrop-blur-sm">
-                  Watch Demo
+                  About
                 </button>
               </Link>
             </motion.div>
