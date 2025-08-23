@@ -245,8 +245,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📞 Contact
 
 **Developer:** Saddam Hosen  
-**Email:** saddamhosen42@gmail.com  
-**Project Link:** [https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-SaddamHosen42](https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-SaddamHosen42)
+**Email:** saddamhosen1433@gmail.com  
+**LinkedIn:** [https://www.linkedin.com/in/saddam-hosen](https://www.linkedin.com/in/saddam-hosen)
 
 ---
 
