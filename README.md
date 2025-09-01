@@ -58,7 +58,6 @@
 - 🔐 Secure authentication with Firebase
 - 👤 Role-based access (Admin, Member, User)
 - 📝 Profile management with photo uploads
-- 🔄 Real-time user status updates
 
 ### 🏠 **Building Operations**
 - 🏢 Apartment management and assignments
@@ -80,7 +79,6 @@
 
 ### 🎨 **Modern UI/UX**
 - 📱 Fully responsive design
-- 🌙 Dark/Light theme support
 - ⚡ Fast loading with optimized performance
 - 🎭 Smooth animations with Framer Motion
 - 🗺️ Interactive location mapping
@@ -245,8 +243,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📞 Contact
 
 **Developer:** Saddam Hosen  
-**Email:** saddamhosen42@gmail.com  
-**Project Link:** [https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-SaddamHosen42](https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-SaddamHosen42)
+**Email:** saddamhosen1433@gmail.com  
+**LinkedIn:** [https://www.linkedin.com/in/saddam-hosen](https://www.linkedin.com/in/saddam-hosen)
 
 ---
 
@@ -254,12 +252,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
   <p>Made with ❤️ for better building management</p>
   <p>🏢 <strong>Nivash</strong> - Where Community Meets Technology</p>
 </div>
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
