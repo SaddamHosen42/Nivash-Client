@@ -24,6 +24,46 @@ const Login = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedCredential, setSelectedCredential] = useState(null);
+
+  // Demo credentials data
+  const credentials = {
+    admin: {
+      email: "admin@gmail.com",
+      password: "Admin12",
+      role: "Admin",
+      icon: "👨‍💼",
+      color: "red"
+    },
+    member: {
+      email: "member@gmail.com", 
+      password: "Member12",
+      role: "Member",
+      icon: "👤",
+      color: "green"
+    }
+  };
+
+  // Auto-fill credentials function
+  const handleCredentialSelect = (credentialType) => {
+    const credential = credentials[credentialType];
+    if (credential) {
+      // Use setValue from react-hook-form to properly set values
+      const emailInput = document.querySelector('input[type="email"]');
+      const passwordInput = document.querySelector('input[type="password"]');
+      
+      if (emailInput && passwordInput) {
+        emailInput.value = credential.email;
+        passwordInput.value = credential.password;
+        
+        // Trigger events to ensure react-hook-form recognizes the changes
+        emailInput.dispatchEvent(new Event('input', { bubbles: true }));
+        passwordInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      
+      setSelectedCredential(credentialType);
+    }
+  };
 
   const onSubmit = (data) => {
     //console.log(data);
@@ -156,6 +196,125 @@ const Login = () => {
                 )}
 
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                  {/* Demo Credentials Toggle */}
+                  <motion.div
+                    className="space-y-4 mb-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  >
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-gray-700 mb-2">Demo Credentials</p>
+                      <p className="text-xs text-gray-500 mb-4">Click any button to auto-fill credentials</p>
+                    </div>
+                    
+                    {/* Credential Buttons */}
+                    <div className="grid grid-cols-2 gap-3">
+                      {/* Admin Button */}
+                      <motion.button
+                        type="button"
+                        onClick={() => handleCredentialSelect('admin')}
+                        className={`
+                          relative p-4 rounded-xl border-2 transition-all duration-300 text-center
+                          ${selectedCredential === 'admin' 
+                            ? 'border-red-500 bg-red-50 shadow-lg scale-105' 
+                            : 'border-red-200 bg-red-25 hover:border-red-300 hover:bg-red-50'
+                          }
+                        `}
+                        whileHover={{ scale: selectedCredential === 'admin' ? 1.05 : 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <div className="text-xl mb-2">👨‍💼</div>
+                        <div className="text-sm font-bold text-red-700">Admin Login</div>
+                        <div className="text-xs text-red-600 mt-1">Full Access</div>
+                        {selectedCredential === 'admin' && (
+                          <motion.div
+                            className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: 0.2 }}
+                          />
+                        )}
+                      </motion.button>
+
+                      {/* Member Button */}
+                      <motion.button
+                        type="button"
+                        onClick={() => handleCredentialSelect('member')}
+                        className={`
+                          relative p-4 rounded-xl border-2 transition-all duration-300 text-center
+                          ${selectedCredential === 'member' 
+                            ? 'border-green-500 bg-green-50 shadow-lg scale-105' 
+                            : 'border-green-200 bg-green-25 hover:border-green-300 hover:bg-green-50'
+                          }
+                        `}
+                        whileHover={{ scale: selectedCredential === 'member' ? 1.05 : 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <div className="text-xl mb-2">👤</div>
+                        <div className="text-sm font-bold text-green-700">Member Login</div>
+                        <div className="text-xs text-green-600 mt-1">Tenant Access</div>
+                        {selectedCredential === 'member' && (
+                          <motion.div
+                            className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: 0.2 }}
+                          />
+                        )}
+                      </motion.button>
+                    </div>
+
+                    {/* Selected Credential Info */}
+                    {selectedCredential && (
+                      <motion.div
+                        className={`
+                          ${selectedCredential === 'admin' && 'bg-gradient-to-r from-red-50 to-red-100 border border-red-200'}
+                          ${selectedCredential === 'member' && 'bg-gradient-to-r from-green-50 to-green-100 border border-green-200'}
+                          rounded-xl p-4
+                        `}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className={`
+                            text-sm font-bold flex items-center gap-2
+                            ${selectedCredential === 'admin' && 'text-red-700'}
+                            ${selectedCredential === 'member' && 'text-green-700'}
+                          `}>
+                            <span>{credentials[selectedCredential].icon}</span>
+                            {credentials[selectedCredential].role} Account Selected
+                          </h4>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedCredential(null)}
+                            className={`
+                              text-xs transition-colors
+                              ${selectedCredential === 'admin' && 'text-red-600 hover:text-red-800'}
+                              ${selectedCredential === 'member' && 'text-green-600 hover:text-green-800'}
+                            `}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                        <div className="space-y-1 text-xs">
+                          <p className={`
+                            ${selectedCredential === 'admin' && 'text-red-600'}
+                            ${selectedCredential === 'member' && 'text-green-600'}
+                          `}>
+                            <strong>Email:</strong> {credentials[selectedCredential].email}
+                          </p>
+                          <p className={`
+                            ${selectedCredential === 'admin' && 'text-red-600'}
+                            ${selectedCredential === 'member' && 'text-green-600'}
+                          `}>
+                            <strong>Password:</strong> {credentials[selectedCredential].password}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </motion.div>
                   {/* Email Field */}
                   <motion.div 
                     className="space-y-2"
