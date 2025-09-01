@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
-import { motion } from "framer-motion";//eslint-disable-line
+import { motion } from "framer-motion"; //eslint-disable-line
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
@@ -16,6 +16,8 @@ const Login = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
+    clearErrors,
     formState: { errors },
   } = useForm();
 
@@ -33,40 +35,48 @@ const Login = () => {
       password: "Admin12",
       role: "Admin",
       icon: "👨‍💼",
-      color: "red"
+      color: "red",
     },
     member: {
-      email: "member@gmail.com", 
+      email: "member@gmail.com",
       password: "Member12",
       role: "Member",
       icon: "👤",
-      color: "green"
-    }
+      color: "green",
+    },
+    user: {
+      email: "hosen1433@gmail.com",
+      password: "Password",
+      role: "User",
+      icon: "🏠",
+      color: "blue",
+    },
   };
 
   // Auto-fill credentials function
   const handleCredentialSelect = (credentialType) => {
     const credential = credentials[credentialType];
     if (credential) {
-      // Use setValue from react-hook-form to properly set values
-      const emailInput = document.querySelector('input[type="email"]');
-      const passwordInput = document.querySelector('input[type="password"]');
-      
-      if (emailInput && passwordInput) {
-        emailInput.value = credential.email;
-        passwordInput.value = credential.password;
-        
-        // Trigger events to ensure react-hook-form recognizes the changes
-        emailInput.dispatchEvent(new Event('input', { bubbles: true }));
-        passwordInput.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-      
+      // Clear any existing validation errors
+      clearErrors(["email", "password"]);
+
+      // Use React Hook Form's setValue to properly set values and trigger validation
+      setValue("email", credential.email, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      setValue("password", credential.password, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+
       setSelectedCredential(credentialType);
     }
   };
 
   const onSubmit = (data) => {
-    //console.log(data);
     // Handle login logic here
     logIn(data.email, data.password)
       .then((result) => {
@@ -85,8 +95,6 @@ const Login = () => {
         reset(); // Reset the form after successful login
       })
       .catch(() => {
-        //console.log(error.message);
-        //setErrorMessage(error.message);
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -103,53 +111,63 @@ const Login = () => {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Animation & Welcome */}
-          <motion.div 
+          <motion.div
             className="hidden lg:block space-y-8"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <motion.div 
+            <motion.div
               className="text-center"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <h1 className="text-5xl font-bold text-gray-900 mb-4">
-                Welcome Back to 
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"> Nivash</span>
+                Welcome Back to
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+                  {" "}
+                  Nivash
+                </span>
               </h1>
               <p className="text-xl text-gray-600">
-                Sign in to access your building management dashboard and continue your journey with us
+                Sign in to access your building management dashboard and
+                continue your journey with us
               </p>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="bg-white rounded-3xl p-8 shadow-2xl"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <Lottie animationData={loginAnimation} loop={true} className="w-full h-80"></Lottie>
+              <Lottie
+                animationData={loginAnimation}
+                loop={true}
+                className="w-full h-80"
+              ></Lottie>
             </motion.div>
-            
+
             {/* Quick Access Features */}
-            <motion.div 
+            <motion.div
               className="grid grid-cols-2 gap-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <motion.div 
+              <motion.div
                 className="bg-white rounded-2xl p-4 shadow-lg"
                 whileHover={{ y: -5, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="text-2xl mb-2">📊</div>
                 <h3 className="font-semibold text-gray-900">Dashboard</h3>
-                <p className="text-sm text-gray-600">Monitor your apartment status</p>
+                <p className="text-sm text-gray-600">
+                  Monitor your apartment status
+                </p>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="bg-white rounded-2xl p-4 shadow-lg"
                 whileHover={{ y: -5, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
@@ -162,7 +180,7 @@ const Login = () => {
           </motion.div>
 
           {/* Right Side - Login Form */}
-          <motion.div 
+          <motion.div
             className="w-full max-w-md mx-auto"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -170,7 +188,7 @@ const Login = () => {
           >
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
               {/* Header */}
-              <motion.div 
+              <motion.div
                 className="bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white text-center"
                 initial={{ opacity: 0, y: -30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -182,7 +200,7 @@ const Login = () => {
               {/* Form Body */}
               <div className="p-8">
                 {errorMessage && (
-                  <motion.div 
+                  <motion.div
                     className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -204,30 +222,41 @@ const Login = () => {
                     transition={{ duration: 0.5, delay: 0.6 }}
                   >
                     <div className="text-center">
-                      <p className="text-sm font-semibold text-gray-700 mb-2">Demo Credentials</p>
-                      <p className="text-xs text-gray-500 mb-4">Click any button to auto-fill credentials</p>
+                      <p className="text-sm font-semibold text-gray-700 mb-2">
+                        Demo Credentials
+                      </p>
+                      <p className="text-xs text-gray-500 mb-4">
+                        Click any button to auto-fill credentials
+                      </p>
                     </div>
-                    
+
                     {/* Credential Buttons */}
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-3 gap-2">
                       {/* Admin Button */}
                       <motion.button
                         type="button"
-                        onClick={() => handleCredentialSelect('admin')}
+                        onClick={() => handleCredentialSelect("admin")}
                         className={`
-                          relative p-4 rounded-xl border-2 transition-all duration-300 text-center
-                          ${selectedCredential === 'admin' 
-                            ? 'border-red-500 bg-red-50 shadow-lg scale-105' 
-                            : 'border-red-200 bg-red-25 hover:border-red-300 hover:bg-red-50'
+                          relative p-3 rounded-xl border-2 transition-all duration-300 text-center
+                          ${
+                            selectedCredential === "admin"
+                              ? "border-red-500 bg-red-50 shadow-lg scale-105"
+                              : "border-red-200 bg-red-25 hover:border-red-300 hover:bg-red-50"
                           }
                         `}
-                        whileHover={{ scale: selectedCredential === 'admin' ? 1.05 : 1.02 }}
+                        whileHover={{
+                          scale: selectedCredential === "admin" ? 1.05 : 1.02,
+                        }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <div className="text-xl mb-2">👨‍💼</div>
-                        <div className="text-sm font-bold text-red-700">Admin Login</div>
-                        <div className="text-xs text-red-600 mt-1">Full Access</div>
-                        {selectedCredential === 'admin' && (
+                        <div className="text-lg mb-1">👨‍💼</div>
+                        <div className="text-xs font-bold text-red-700">
+                          Admin
+                        </div>
+                        <div className="text-xs text-red-600 mt-1">
+                          Full Access
+                        </div>
+                        {selectedCredential === "admin" && (
                           <motion.div
                             className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"
                             initial={{ scale: 0 }}
@@ -240,21 +269,28 @@ const Login = () => {
                       {/* Member Button */}
                       <motion.button
                         type="button"
-                        onClick={() => handleCredentialSelect('member')}
+                        onClick={() => handleCredentialSelect("member")}
                         className={`
-                          relative p-4 rounded-xl border-2 transition-all duration-300 text-center
-                          ${selectedCredential === 'member' 
-                            ? 'border-green-500 bg-green-50 shadow-lg scale-105' 
-                            : 'border-green-200 bg-green-25 hover:border-green-300 hover:bg-green-50'
+                          relative p-3 rounded-xl border-2 transition-all duration-300 text-center
+                          ${
+                            selectedCredential === "member"
+                              ? "border-green-500 bg-green-50 shadow-lg scale-105"
+                              : "border-green-200 bg-green-25 hover:border-green-300 hover:bg-green-50"
                           }
                         `}
-                        whileHover={{ scale: selectedCredential === 'member' ? 1.05 : 1.02 }}
+                        whileHover={{
+                          scale: selectedCredential === "member" ? 1.05 : 1.02,
+                        }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <div className="text-xl mb-2">👤</div>
-                        <div className="text-sm font-bold text-green-700">Member Login</div>
-                        <div className="text-xs text-green-600 mt-1">Tenant Access</div>
-                        {selectedCredential === 'member' && (
+                        <div className="text-lg mb-1">👤</div>
+                        <div className="text-xs font-bold text-green-700">
+                          Member
+                        </div>
+                        <div className="text-xs text-green-600 mt-1">
+                          Tenant Access
+                        </div>
+                        {selectedCredential === "member" && (
                           <motion.div
                             className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"
                             initial={{ scale: 0 }}
@@ -263,60 +299,45 @@ const Login = () => {
                           />
                         )}
                       </motion.button>
-                    </div>
 
-                    {/* Selected Credential Info */}
-                    {selectedCredential && (
-                      <motion.div
+                      {/* User Button */}
+                      <motion.button
+                        type="button"
+                        onClick={() => handleCredentialSelect("user")}
                         className={`
-                          ${selectedCredential === 'admin' && 'bg-gradient-to-r from-red-50 to-red-100 border border-red-200'}
-                          ${selectedCredential === 'member' && 'bg-gradient-to-r from-green-50 to-green-100 border border-green-200'}
-                          rounded-xl p-4
+                          relative p-3 rounded-xl border-2 transition-all duration-300 text-center
+                          ${
+                            selectedCredential === "user"
+                              ? "border-blue-500 bg-blue-50 shadow-lg scale-105"
+                              : "border-blue-200 bg-blue-25 hover:border-blue-300 hover:bg-blue-50"
+                          }
                         `}
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        transition={{ duration: 0.3 }}
+                        whileHover={{
+                          scale: selectedCredential === "user" ? 1.05 : 1.02,
+                        }}
+                        whileTap={{ scale: 0.98 }}
                       >
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className={`
-                            text-sm font-bold flex items-center gap-2
-                            ${selectedCredential === 'admin' && 'text-red-700'}
-                            ${selectedCredential === 'member' && 'text-green-700'}
-                          `}>
-                            <span>{credentials[selectedCredential].icon}</span>
-                            {credentials[selectedCredential].role} Account Selected
-                          </h4>
-                          <button
-                            type="button"
-                            onClick={() => setSelectedCredential(null)}
-                            className={`
-                              text-xs transition-colors
-                              ${selectedCredential === 'admin' && 'text-red-600 hover:text-red-800'}
-                              ${selectedCredential === 'member' && 'text-green-600 hover:text-green-800'}
-                            `}
-                          >
-                            ✕
-                          </button>
+                        <div className="text-lg mb-1">🏠</div>
+                        <div className="text-xs font-bold text-blue-700">
+                          User
                         </div>
-                        <div className="space-y-1 text-xs">
-                          <p className={`
-                            ${selectedCredential === 'admin' && 'text-red-600'}
-                            ${selectedCredential === 'member' && 'text-green-600'}
-                          `}>
-                            <strong>Email:</strong> {credentials[selectedCredential].email}
-                          </p>
-                          <p className={`
-                            ${selectedCredential === 'admin' && 'text-red-600'}
-                            ${selectedCredential === 'member' && 'text-green-600'}
-                          `}>
-                            <strong>Password:</strong> {credentials[selectedCredential].password}
-                          </p>
+                        <div className="text-xs text-blue-600 mt-1">
+                          Basic Access
                         </div>
-                      </motion.div>
-                    )}
+                        {selectedCredential === "user" && (
+                          <motion.div
+                            className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: 0.2 }}
+                          />
+                        )}
+                      </motion.button>
+                    </div>
                   </motion.div>
+
                   {/* Email Field */}
-                  <motion.div 
+                  <motion.div
                     className="space-y-2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -333,12 +354,14 @@ const Login = () => {
                         placeholder="Enter your email"
                         required
                       />
-                      <span className="absolute left-4 top-3.5 text-gray-400">📧</span>
+                      <span className="absolute left-4 top-3.5 text-gray-400">
+                        📧
+                      </span>
                     </div>
                   </motion.div>
 
                   {/* Password Field */}
-                  <motion.div 
+                  <motion.div
                     className="space-y-2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -358,7 +381,9 @@ const Login = () => {
                         placeholder="Enter your password"
                         required
                       />
-                      <span className="absolute left-4 top-3.5 text-gray-400">🔒</span>
+                      <span className="absolute left-4 top-3.5 text-gray-400">
+                        🔒
+                      </span>
                       <button
                         type="button"
                         className="absolute right-4 top-3.5 text-gray-400 hover:text-gray-600"
@@ -368,7 +393,7 @@ const Login = () => {
                       </button>
                     </div>
                     {errors.password && (
-                      <motion.p 
+                      <motion.p
                         className="text-red-500 text-sm flex items-center gap-2"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -381,7 +406,7 @@ const Login = () => {
                   </motion.div>
 
                   {/* Forgot Password */}
-                  <motion.div 
+                  <motion.div
                     className="text-right"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -406,7 +431,7 @@ const Login = () => {
                   </motion.button>
 
                   {/* Register Link */}
-                  <motion.div 
+                  <motion.div
                     className="text-center pt-4"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -414,14 +439,17 @@ const Login = () => {
                   >
                     <p className="text-gray-600">
                       Don't have an account?{" "}
-                      <Link to="/register" className="text-indigo-600 font-semibold hover:text-indigo-700">
+                      <Link
+                        to="/register"
+                        className="text-indigo-600 font-semibold hover:text-indigo-700"
+                      >
                         Create Account
                       </Link>
                     </p>
                   </motion.div>
 
                   {/* Divider */}
-                  <motion.div 
+                  <motion.div
                     className="relative my-6"
                     initial={{ opacity: 0, scaleX: 0 }}
                     animate={{ opacity: 1, scaleX: 1 }}
@@ -431,7 +459,9 @@ const Login = () => {
                       <div className="w-full border-t border-gray-200"></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-6 bg-white text-gray-500 font-medium">Or continue with</span>
+                      <span className="px-6 bg-white text-gray-500 font-medium">
+                        Or continue with
+                      </span>
                     </div>
                   </motion.div>
 
